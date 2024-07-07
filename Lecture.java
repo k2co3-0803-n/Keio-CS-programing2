@@ -1,30 +1,39 @@
 import java.util.List;
 
 public class Lecture {
-	String lectureID;
-	String lectureName;
-	String classroom;
-	String lectureDayAndTime;
-	String professorInCharge;
-	List<Student> enrolledStudents;
+	private String lectureID;
+	private String lectureName;
+	private String classRoom;
+	private String lectureDayAndTime;
+	private String professorInCharge;
+	private List<Student> enrolledStudents;
 
 	// コンストラクタ、ゲッター、セッターなどのメソッドは省略
-	String getLectureID() {
-		return lectureID;
+	// Definition of constructor
+	public Lecture(String lectureID, String lectureName, String classRoom, String lectureDayAndTime, String professorInCharge, List<Student> enrollStudents) {
+		this.lectureID = lectureID;
+		this.lectureName = lectureName;
+		this.classRoom = classRoom;
+		this.lectureDayAndTime = lectureDayAndTime;
+		this.professorInCharge = professorInCharge;
+		this.enrolledStudents = enrollStudents;
 	}
-	String getLectureName() {
-		return lectureName;
+	public String getLectureID() {
+		return this.lectureID;
 	}
-	String getClassRoom() {
-		return classroom;
+	public String getLectureName() {
+		return this.lectureName;
 	}
-	String getLectureDayAndTime() {
-		return lectureDayAndTime;
+	public String getClassRoom() {
+		return this.classRoom;
 	}
-	String getProfessorInCharge() {
-		return professorInCharge;
+	public String getLectureDayAndTime() {
+		return this.lectureDayAndTime;
 	}
-	List<Student> getEnrolledStudents() {
-		return enrolledStudents;
+	public String getProfessorInCharge() {
+		return this.professorInCharge;
+	}
+	public List<Student> getEnrolledStudents() {
+		return this.enrolledStudents;
 	}
 }

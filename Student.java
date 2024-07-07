@@ -2,17 +2,25 @@ import java.util.List;
 
 public class Student {
 	String studentID;
-	String name;
+	String studentName;
 	List<Lecture> enrolledLectures;
 
 	// コンストラクタ、ゲッター、セッターなどのメソッドは省略
-	String getStudentID() {
-		return studentID;
+	// Definition of constructor
+	// 
+	public Student(String studentID, String studentName, List<Lecture> enrolledLectures) {
+		this.studentID = studentID;
+		this.studentName = studentName;
+		this.enrolledLectures = enrolledLectures;
 	}
-	String getName() {
-		return name;
+	public String getStudentID() {
+		return this.studentID;
 	}
-	List<Lecture> getEnrolledLectures() {
-		return enrolledLectures;
+	public String getName() {
+		return this.studentName;
 	}
+	public List<Lecture> getEnrolledLectures() {
+		return this.enrolledLectures;
+	}
+	public 
 }
