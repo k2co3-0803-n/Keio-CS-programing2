@@ -22,5 +22,4 @@ public class Student {
 	public List<Lecture> getEnrolledLectures() {
 		return this.enrolledLectures;
 	}
-	public 
 }
