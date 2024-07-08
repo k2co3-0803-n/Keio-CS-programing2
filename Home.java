@@ -32,9 +32,9 @@ public class Home extends MyFrame {
 		label1.setHorizontalAlignment(JLabel.CENTER);
 		label2.setHorizontalAlignment(JLabel.CENTER);
 		Font font1 = label1.getFont();
-		label1.setFont(font1.deriveFont(Font.BOLD, 24)); // 24は適切なフォントサイズに置き換えてください
+		label1.setFont(font1.deriveFont(Font.BOLD, 24));
 		Font font2 = label2.getFont();
-		label2.setFont(font2.deriveFont(Font.BOLD, 24)); // 24は適切なフォントサイズに置き換えてください
+		label2.setFont(font2.deriveFont(Font.BOLD, 24));
 
 		JButton lectureButton = new JButton("講義");
 		JButton studentButton = new JButton("学生");
@@ -45,7 +45,7 @@ public class Home extends MyFrame {
 		professorButton.addActionListener(buttonActionListener);
 		
 		JPanel subPanel = new JPanel();
-		//subPanel.setLayout(new GridLayout(1,0));
+		subPanel.setLayout(new GridLayout(1,0));
 		subPanel.add(lectureButton);
 		subPanel.add(studentButton);
 		subPanel.add(professorButton);
