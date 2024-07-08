@@ -1,6 +1,7 @@
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +15,9 @@ public class Home extends MyFrame {
 	}
 
 	// Instance variable
-	static Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
-	static CardLayout layout; // For switching the screen. This is the key point of switching of screen.
+	public static Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
+	public static JPanel cardPanel;
+	public static CardLayout layout; // For switching the screen. This is the key point of switching of screen.
 
 	// Iternal class
 	class ButtonAction implements ActionListener {
@@ -41,8 +43,11 @@ public class Home extends MyFrame {
 		JButton professorButton = new JButton("教員");
 		ButtonAction buttonActionListener = new ButtonAction();
 		lectureButton.addActionListener(buttonActionListener);
+		lectureButton.setActionCommand("講義");
 		studentButton.addActionListener(buttonActionListener);
+		studentButton.setActionCommand("学生");
 		professorButton.addActionListener(buttonActionListener);
+		professorButton.setActionCommand("教員");
 		
 		JPanel subPanel = new JPanel();
 		subPanel.setLayout(new GridLayout(1,0));
@@ -55,6 +60,14 @@ public class Home extends MyFrame {
 		mainPannel.add(label1);
 		mainPannel.add(label2);
 		mainPannel.add(subPanel);
+
+		// テスト部分
+		LectureList lectureList = new LectureList();
+		cardPanel = new JPanel();
+		layout = new CardLayout();
+		cardPanel.setLayout(layout);
+		cardPanel.add(lectureList.createComponent(), "講義");
+		mainPannel.add(cardPanel);
 
 		return mainPannel;
 	}
