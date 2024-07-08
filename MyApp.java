@@ -1,10 +1,8 @@
-// Here, defining GUI of this application
-
-import javax.swing.JFrame;
-
+// Entry point
 public class MyApp {
-	// Here, use as sub-main function
-	public static void runApp() {
+	// clase method
+	public static void main(String[] args) {
 		Home.createHome();
 	}
+
 }

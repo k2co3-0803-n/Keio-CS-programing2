@@ -1,28 +1,29 @@
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Home extends MyFrame {
 
-	// For switching the screen 
-	CardLayout layout;
-
+	static Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
+	static CardLayout layout; // For switching the screen. This is the key point of switching of screen.
+	
 	// Definiton of constructor
-	public Home() {
-		super();
+	public Home(String title) {
+		super(); // Constructor of super class
+		this.setTitle(title); // Here, set the name of the frame.
 	}
+
 	// Iternal class
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			layout.show(cardPanel, command);
+			layout.show(home, command);
 		}
 	}
+
 	public Component createComponents() {
 		JLabel label1 = new JLabel("講義管理システム");
 		JLabel label2 = new JLabel("ラクタ");
@@ -48,9 +49,10 @@ public class Home extends MyFrame {
 
 		return mainPannel;
 	}
-	// Here, use as sub-main function
+
+	// class method
+	// Here, create home screen as an entity
 	public static void createHome() {
-		Home home = new Home();
 		Component contents = home.createComponents();
 		home.getContentPane().add(contents, BorderLayout.CENTER);
 	}

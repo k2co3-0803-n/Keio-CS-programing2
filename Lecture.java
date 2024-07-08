@@ -8,7 +8,7 @@ public class Lecture {
 	private String professorInCharge;
 	private List<Student> enrolledStudents;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドは省略
+	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
 	public Lecture(String lectureID, String lectureName, String classRoom, String lectureDayAndTime, String professorInCharge, List<Student> enrollStudents) {
 		this.lectureID = lectureID;

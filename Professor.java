@@ -5,7 +5,7 @@ public class Professor {
 	String professorName;
 	List<Lecture> lecturesInCharge;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドは省略
+	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
 	public Professor(String professorID, String professorName, List<Lecture> lecturesInCharge) {
 		this.professorID = professorID;
