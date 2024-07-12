@@ -35,11 +35,22 @@ public class LecturePanel extends JPanel{
 		scrollPane.createVerticalScrollBar();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setPreferredSize(new Dimension(800, 800)); // Set your desired size here
+		scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		JButton buttonRegister = new JButton("新しい講義を追加");
 
 		LecturePanel lecturePanel = new LecturePanel();
-		lecturePanel.add(scrollPane);
+		//lecturePanel.setLayout(new BoxLayout(lecturePanel, BoxLayout.Y_AXIS));
+		lecturePanel.add(buttonRegister, BorderLayout.CENTER);
+		lecturePanel.add(scrollPane, BorderLayout.CENTER);
 
 		return lecturePanel;
+	}
+
+	public static class RegisterButtonAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+		}
 	}
 
 	public static class ButtonRenderer extends JPanel implements ListCellRenderer {
