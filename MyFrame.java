@@ -4,7 +4,8 @@ import javax.swing.JFrame;
 // The reason of the existance of this class is, later we will create a lot of the same JFrame.
 // Here, inherit JFrame as a super class.
 public class MyFrame extends JFrame {
-	public MyFrame() {
+	public MyFrame(String frameName) {
+		setTitle(frameName);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(900,600);
 		setLocationRelativeTo(null); // Here, instruct the location of the window.
