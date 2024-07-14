@@ -33,7 +33,6 @@ public class RegisterFormLecture extends MyFrame {
 		dayAndTime = new JTextField();
 		professor = new JTextField();
 
-
 		JButton addButton = new JButton("追加");
 		ButtonAction buttonListener = new ButtonAction();
 		addButton.addActionListener(buttonListener);
@@ -69,7 +68,6 @@ public class RegisterFormLecture extends MyFrame {
 		mainPane.add(pane5);
 		mainPane.add(pane6);
 		mainPane.add(addButton);
-		//mainPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
 		this.setSize(500, 600);
