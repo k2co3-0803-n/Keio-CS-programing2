@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 // Here, define UI of Register form of new Lectures
-public class RegisterFormLecture extends JFrame {
+public class RegisterFormLecture extends MyFrame {
 	JTextField title;
 	JTextField id;
 	JTextField lectureName;
@@ -13,12 +13,13 @@ public class RegisterFormLecture extends JFrame {
 
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
+			dispose();
 		}
 	}
 
 	// Constructor
 	public RegisterFormLecture(String frameName) {
+		super(frameName);
 		JLabel titleLabel = new JLabel("新しい講義を追加");
 		JLabel idLabel = new JLabel("講義ID");
 		JLabel lectureNameLabel = new JLabel("講義名");
@@ -38,26 +39,25 @@ public class RegisterFormLecture extends JFrame {
 		addButton.addActionListener(buttonListener);
 
 		JPanel pane1 = new JPanel();
-
 		pane1.add(titleLabel);
 		JPanel pane2 = new JPanel();
-		pane2.setLayout(new GridLayout(1, 0));
+		pane2.setLayout(new GridLayout(2, 0));
 		pane2.add(idLabel);
 		pane2.add(id);
 		JPanel pane3 = new JPanel();
-		pane3.setLayout(new GridLayout(1, 0));
+		pane3.setLayout(new GridLayout(2, 0));
 		pane3.add(lectureNameLabel);
 		pane3.add(lectureName);
 		JPanel pane4 = new JPanel();
-		pane4.setLayout(new GridLayout(1, 0));
+		pane4.setLayout(new GridLayout(2, 0));
 		pane4.add(classRoomLabel);
 		pane4.add(classRoom);
 		JPanel pane5 = new JPanel();
-		pane5.setLayout(new GridLayout(1, 0));
+		pane5.setLayout(new GridLayout(2, 0));
 		pane5.add(dayAndTimeLabel);
 		pane5.add(dayAndTime);
 		JPanel pane6 = new JPanel();
-		pane6.setLayout(new GridLayout(1, 0));
+		pane6.setLayout(new GridLayout(2, 0));
 		pane6.add(professorLabel);
 		pane6.add(professor);
 		JPanel mainPane = new JPanel();
@@ -71,12 +71,10 @@ public class RegisterFormLecture extends JFrame {
 		mainPane.add(addButton);
 		//mainPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 
-		this.setTitle(frameName);
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500, 600);
 	}
-	public static void main(String[] args) {
+	public static void createRegisterFormLecture() {
 		RegisterFormLecture registerFormLecture = new RegisterFormLecture("新しい講義を追加");
 		registerFormLecture.setVisible(true);
 	}

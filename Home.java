@@ -1,5 +1,6 @@
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -74,9 +75,10 @@ public class Home extends MyFrame {
 
 	// class method
 	// Here, create home screen as an entity
-	// MyAppクラスのmainメソッドで読んでます
+	// Later, call this class method in main method of MyApp class
 	public static void createHome() {
 		Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
+		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		home.setVisible(true);
 	}
 }
