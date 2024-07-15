@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 // Here, define the UI of Lecture List
 public class StudentPanel extends JPanel{
+	static Jlist list;
 
 	// public static LecturePanel createLecturePanel() {
 	// 	LecturePanel lecturePanel = new LecturePanel();
@@ -25,8 +26,10 @@ public class StudentPanel extends JPanel{
 			model.addElement("Student " + (i+1));
 		}
 
-		JList list = new JList(model);
+		list = new JList(model);
 		list.setCellRenderer(new ButtonRenderer());
+
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.createVerticalScrollBar();
