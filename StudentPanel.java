@@ -74,6 +74,8 @@ public class StudentPanel extends JPanel{
 			setLayout(new BorderLayout());
 			label = new JLabel();
 			button = new JButton("Detail");
+			DetailButtonAction detailButtonActionListener = new DetailButtonAction();
+			button.addActionListener(detailButtonActionListener);
 			button.setPreferredSize(new Dimension(100, 20));
 			add(label, BorderLayout.CENTER);
 			add(button, BorderLayout.EAST);
