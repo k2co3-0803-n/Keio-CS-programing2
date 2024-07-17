@@ -1,9 +1,7 @@
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +15,8 @@ public class Home extends MyFrame {
 	// Constructor
 	public Home(String title) {
 		super(title); // Constructor of super class
-		JLabel label1 = new JLabel("講義管理システム");
-		JLabel label2 = new JLabel("ラクタ");
+		JLabel label1 = new JLabel("Lecture Manegement System");
+		JLabel label2 = new JLabel("Rakuta");
 		label1.setHorizontalAlignment(JLabel.CENTER);
 		label2.setHorizontalAlignment(JLabel.CENTER);
 		Font font1 = label1.getFont();
@@ -26,16 +24,16 @@ public class Home extends MyFrame {
 		Font font2 = label2.getFont();
 		label2.setFont(font2.deriveFont(Font.BOLD, 24));
 
-		JButton lectureButton = new JButton("講義");
-		JButton studentButton = new JButton("学生");
-		JButton professorButton = new JButton("教員");
+		JButton lectureButton = new JButton("Lecture");
+		JButton studentButton = new JButton("Student");
+		JButton professorButton = new JButton("Professor");
 		ButtonAction buttonActionListener = new ButtonAction();
 		lectureButton.addActionListener(buttonActionListener);
-		lectureButton.setActionCommand("講義");
+		lectureButton.setActionCommand("Lecture");
 		studentButton.addActionListener(buttonActionListener);
-		studentButton.setActionCommand("学生");
+		studentButton.setActionCommand("Student");
 		professorButton.addActionListener(buttonActionListener);
-		professorButton.setActionCommand("教員");
+		professorButton.setActionCommand("Professor");
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,0));
@@ -56,9 +54,9 @@ public class Home extends MyFrame {
 		cardPanel = new JPanel();
 		layout = new CardLayout();
 		cardPanel.setLayout(layout);
-		cardPanel.add(lecturePanel, "講義");
-		cardPanel.add(studentPanel, "学生");
-		cardPanel.add(professorPanel, "教員");
+		cardPanel.add(lecturePanel, "Lecture");
+		cardPanel.add(studentPanel, "Student");
+		cardPanel.add(professorPanel, "Professor");
 
 		Container contentPane = getContentPane();
 		contentPane.add(mainPannel, BorderLayout.PAGE_START);

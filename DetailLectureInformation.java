@@ -1,9 +1,14 @@
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -18,14 +23,21 @@ public class DetailLectureInformation extends MyFrame{
 		JLabel professorLabel = new JLabel("Lecture Professor: " + lecture.getProfessorInCharge());
 
 		// TODO add JTable which shows the list of students taking this class.
+		// StudentTableModel model = new StudentTableModel(lecture.getEnrolledStudents());
+		// JTable table = new JTable(model);
+		// JScrollPane scrollPane = new JScrollPane(table);
 
 		JButton editButton = new JButton("edit");
 		ButtonAction buttonListener = new ButtonAction();
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
-		deleteButtton.addActionListener(buttonListener);
+		// pass lecture information to the action listener by using constructor
+		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(lecture);
+		deleteButtton.addActionListener(deleteButtonActionListener);
 
 		FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
+
+
 
 		JPanel pane1 = new JPanel(centerLayout);
 		pane1.setLayout(new GridLayout(2, 0));
@@ -54,6 +66,7 @@ public class DetailLectureInformation extends MyFrame{
 		mainPane.add(pane3);
 		mainPane.add(pane4);
 		mainPane.add(pane5);
+		//mainPane.add(scrollPane);
 		mainPane.add(pane6);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
@@ -63,6 +76,80 @@ public class DetailLectureInformation extends MyFrame{
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			dispose();
+		}
+	}
+
+	class DeleteButtonAction implements ActionListener {
+		private Lecture lecture; // 講義情報を保持するフィールド
+	
+		// コンストラクタで講義情報を受け取る
+		public DeleteButtonAction(Lecture lecture) {
+			this.lecture = lecture;
+		}
+	
+		public void actionPerformed(ActionEvent e) {
+			int response = JOptionPane.showConfirmDialog(null, "本当にこの講義を削除しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (response == JOptionPane.YES_OPTION) {
+				deleteLecture();
+			} else {
+				dispose();
+			}
+		}
+
+		// static class StudentTableModel extends AbstractTableModel {
+		// 	private List<Student> students;
+		// 	private String[] columnNames = {"ID", "Name"};
+
+		// 	// Constructor
+		// 	public StudentTableModel(ArrayList<Student> students) {
+		// 		this.students = students;
+		// 	}
+	
+		// 	public int getRowCount() {
+		// 		return students.size();
+		// 	}
+	
+		// 	public int getColumnCount() {
+		// 		return columnNames.length;
+		// 	}
+	
+		// 	public Object getValueAt(int rowIndex, int columnIndex) {
+		// 		Student student = students.get(rowIndex);
+		// 		switch (columnIndex) {
+		// 			case 0:
+		// 				return student.getStudentID();
+		// 			case 1:
+		// 				return student.getStudentName();
+		// 			default:
+		// 				return "Details";
+		// 		}
+		// 	}
+	
+		// 	public String getColumnName(int column) {
+		// 		return columnNames[column];
+		// 	}
+		// }
+	
+		private void deleteLecture() {
+			//Database.deleteLecture(lecture.getLectureID());
+
+			// String lectureID = lecture.getLectureID()
+			// int rowIndex = -1; // 初期値は見つからないことを示す-1
+			// for (int i = 0; i < tableModel.getRowCount(); i++) {
+			// 	if (tableModel.getValueAt(i, idColumnIndex).equals(lectureID)) {
+			// 		rowIndex = i;
+			// 		break;
+			// 	}
+			// }
+			// if (rowIndex == -1) {
+			// 	return;
+			// }
+
+			// if (rowIndex != -1) {
+			// 	tableModel.removeRow(rowIndex);
+			// 	table.repaint();
+				dispose();
+			}
 		}
 	}
 

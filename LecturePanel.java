@@ -6,47 +6,57 @@ import java.util.ArrayList;
 import javax.swing.table.TableCellRenderer;
 
 public class LecturePanel extends JPanel {
-    static JTable table;
+	static JTable table;
 
-    public static LecturePanel createLecturePanel() {
-        ArrayList<Lecture> lectures = new ArrayList<>();
+	// class method
+	// Later, this method will be called from Home.java
+	public static LecturePanel createLecturePanel() {
+		// Create a list of lectures. This ArrayList has the actuak data of lectures.
+		ArrayList<Lecture> lectures = new ArrayList<>();
+
+		// temporary data
 		for (int i = 0; i < 100; i++) {
 			Lecture lecture = new Lecture("ID" + i, "Lecture " + (i + 1), "Room " + (i % 10), "Day " + (i % 7), "Professor " + (i % 5), null);
 			lectures.add(lecture);
 		}
 
-        LectureTableModel tableModel = new LectureTableModel(lectures);
-        table = new JTable(tableModel);
+		LectureTableModel tableModel = new LectureTableModel(lectures);
 
-        // Add a button to the last column
-        table.getColumn("Details").setCellRenderer(new ButtonRenderer());
-        table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table = new JTable(tableModel);
+		// Add a button to the last column
+		table.getColumn("Details").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Details").setCellEditor(new ButtonEditor(new JCheckBox()));
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(800, 800));
+		// Add a scroll pane
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setPreferredSize(new Dimension(800, 800));
 
-        JButton buttonRegister = new JButton("add a new lecture");
-        RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
-        buttonRegister.addActionListener(registerButtonActionListener);
+		// Add a button to register a new lecture
+		JButton buttonRegister = new JButton("register a new lecture");
+		RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
+		buttonRegister.addActionListener(registerButtonActionListener);
 
-        LecturePanel lecturePanel = new LecturePanel();
-        lecturePanel.add(buttonRegister, BorderLayout.NORTH);
-        lecturePanel.add(scrollPane, BorderLayout.CENTER);
+		// Create a panel
+		LecturePanel lecturePanel = new LecturePanel();
+		lecturePanel.add(buttonRegister, BorderLayout.NORTH);
+		lecturePanel.add(scrollPane, BorderLayout.CENTER);
 
-        return lecturePanel;
-    }
+		return lecturePanel;
+	}
 
-    public static class RegisterButtonAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            RegisterFormLecture.createRegisterFormLecture();
-        }
-    }
+	// ActionListener for the button to register a new lecture
+	static class RegisterButtonAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			RegisterFormLecture.createRegisterFormLecture();
+		}
+	}
 
     static class LectureTableModel extends AbstractTableModel {
         private ArrayList<Lecture> lectures;
         private String[] columnNames = {"ID", "Title", "Room", "Day and Time", "Professor", "Details"};
 
+		// Constructor
         public LectureTableModel(ArrayList<Lecture> lectures) {
             this.lectures = lectures;
         }
@@ -82,11 +92,12 @@ public class LecturePanel extends JPanel {
         }
 
         public boolean isCellEditable(int row, int col) {
-            return col == 5; // Only the last column is editable
+            return col == 5; // Only the last column is editable. But this is for the UI of pressing the button.
         }
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
+		// Constructor
         public ButtonRenderer() {
             setOpaque(true);
         }
@@ -102,6 +113,7 @@ public class LecturePanel extends JPanel {
         private String label;
         private boolean isPushed;
 
+		// Constructor
         public ButtonEditor(JCheckBox checkBox) {
             super(checkBox);
             button = new JButton();
@@ -122,8 +134,10 @@ public class LecturePanel extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // Show dialog with lecture details
+                // show the detail information of the lecture
                 int row = table.getSelectedRow();
+				// TODO probably this is not a good way to get the data of the selected row.
+				// This data cannot contain the students who take this selected class.
                 Lecture lecture = ((LectureTableModel)table.getModel()).lectures.get(row);
 				DetailLectureInformation.createDetailLectureInformation(lecture);
             }

@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 
 // Here, defining the very basic information of frame.
 // The reason of the existance of this class is, later we will create a lot of the same JFrame.
-// Here, inherit JFrame as a super class.
+// MyFrame class inherits JFrame as a super class.
 public class MyFrame extends JFrame {
 	public MyFrame(String frameName) {
 		setTitle(frameName);
