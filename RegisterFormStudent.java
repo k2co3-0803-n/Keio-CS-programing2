@@ -14,13 +14,12 @@ public class RegisterFormStudent extends MyFrame{
 	}
 
 	// Constructor
-	public RegisterFormLecture(String frameName) {
+	public RegisterFormStudent(String frameName) {
 		super(frameName);
 		JLabel titleLabel = new JLabel("新しい生徒を追加");
 		JLabel studentNameLabel = new JLabel("氏名");
 		JLabel student_idLabel = new JLabel("学籍番号");
 
-		id = new JTextField();
 		studentName = new JTextField();
 		student_id = new JTextField();
 
@@ -49,8 +48,8 @@ public class RegisterFormStudent extends MyFrame{
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
 		this.setSize(500, 600);
 	}
-	public static void createRegisterFormLecture() {
-		RegisterFormLecture registerFormLecture = new RegisterFormLecture("新しい生徒を追加");
+	public static void createRegisterFormStudent() {
+		RegisterFormStudent registerFormLecture = new RegisterFormStudent("新しい生徒を追加");
 		registerFormLecture.setVisible(true);
 	}
 }
