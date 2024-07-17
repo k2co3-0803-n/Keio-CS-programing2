@@ -26,7 +26,7 @@ public class StudentPanel extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(800, 800));
 
-        JButton buttonRegister = new JButton("add a new student");
+        JButton buttonRegister = new JButton("register a new student");
         RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
         buttonRegister.addActionListener(registerButtonActionListener);
 
