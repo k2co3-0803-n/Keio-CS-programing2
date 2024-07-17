@@ -44,9 +44,6 @@ public class RegisterFormStudent extends MyFrame{
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
-		mainPane.add(pane4);
-		mainPane.add(pane5);
-		mainPane.add(pane6);
 		mainPane.add(addButton);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
