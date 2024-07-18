@@ -17,12 +17,21 @@ public class DetailStudentInformation extends MyFrame {
 		JLabel studentNameLabel = new JLabel("Student Name: ");
 		JTextField studentName = new JTextField(student.getName());
 
+		// 履修登録用のテキストフィールド.あとでドロップダウンにするかも
+		JLabel registerLectureIdLabel = new JLabel("履修登録する講義ID: ");
+		JTextField registerLectureId = new JTextField();
+
+		// 履修解除用のテキストフィールド.あとでドロップダウンにするかも
+		JLabel unregisterLectureIdLabel = new JLabel("履修解除する講義ID: ");
+		JTextField unregisterLectureId = new JTextField();
+
 		String[][] taking_lectures = DB.selectLecturesByStudent(student.getStudentID());
 
 		// TODO add JTable which shows the list of lectures the student is taking.
 
 		JButton editButton = new JButton("edit");
-		EditButtonAction editButtonListener = new EditButtonAction(student.getStudentID(), studentName);
+		EditButtonAction editButtonListener = new EditButtonAction(student.getStudentID(), studentName,
+				registerLectureId, unregisterLectureId);
 		editButton.addActionListener(editButtonListener);
 		JButton deleteButton = new JButton("delete");
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(student);
@@ -47,6 +56,16 @@ public class DetailStudentInformation extends MyFrame {
 			pane3.add(lectureLabel);
 		}
 
+		JPanel paneRegister = new JPanel(centerLayout);
+		paneRegister.setLayout(new GridLayout(1, 0));
+		paneRegister.add(registerLectureIdLabel);
+		paneRegister.add(registerLectureId);
+
+		JPanel paneUnregister = new JPanel(centerLayout);
+		paneUnregister.setLayout(new GridLayout(1, 0));
+		paneUnregister.add(unregisterLectureIdLabel);
+		paneUnregister.add(unregisterLectureId);
+
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
 		pane6.add(editButton);
@@ -56,6 +75,8 @@ public class DetailStudentInformation extends MyFrame {
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
+		mainPane.add(paneRegister);
+		mainPane.add(paneUnregister);
 		mainPane.add(pane6);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
@@ -65,15 +86,26 @@ public class DetailStudentInformation extends MyFrame {
 	class EditButtonAction implements ActionListener {
 		private String id;
 		private JTextField nameField;
+		private JTextField registerLectureId;
+		private JTextField unregisterLectureId;
 
-		public EditButtonAction(String id, JTextField nameField) {
+		public EditButtonAction(String id, JTextField nameField, JTextField registerLectureId,
+				JTextField unregisterLectureId) {
 			this.id = id;
 			this.nameField = nameField;
+			this.registerLectureId = registerLectureId;
+			this.unregisterLectureId = unregisterLectureId;
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			String name = nameField.getText();
 			DB.updateStudent(id, name);
+			if (!registerLectureId.getText().equals("")) {
+				DB.insertIntoTakingLectures(id, Integer.parseInt(registerLectureId.getText()));
+			}
+			if (!unregisterLectureId.getText().equals("")) {
+				DB.deleteFromTakingLectures(id, Integer.parseInt(unregisterLectureId.getText()));
+			}
 			MyApp.initdata();
 			dispose();
 		}
