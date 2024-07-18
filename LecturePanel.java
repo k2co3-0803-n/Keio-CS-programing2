@@ -16,6 +16,9 @@ public class LecturePanel extends JPanel {
 
 		// temporary data
 		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 5; j++) {
+				Student students = new Student(TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, lectures)
+			}
 			Lecture lecture = new Lecture("ID" + i, "Lecture " + (i + 1), "Room " + (i % 10), "Day " + (i % 7), "Professor " + (i % 5), null);
 			lectures.add(lecture);
 		}
