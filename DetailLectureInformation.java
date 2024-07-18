@@ -19,7 +19,7 @@ public class DetailLectureInformation extends MyFrame{
 		JLabel idLabel = new JLabel("Lecture ID: " + lecture.getLectureID());
 		JLabel lectureNameLabel = new JLabel("Lecture Name: " + lecture.getLectureName());
 		JLabel classRoomLabel = new JLabel("Lecture Room: " + lecture.getClassRoom());
-		JLabel dayAndTimeLabel = new JLabel("Lecture Time: " + lecture.getLectureDayAndTime());
+		JLabel dayAndTimeLabel = new JLabel("Lecture Time: " + lecture.getDayOfWeek() + lecture.getPeriod());
 		JLabel professorLabel = new JLabel("Lecture Professor: " + lecture.getProfessorInCharge());
 
 		// TODO add JTable which shows the list of students taking this class.

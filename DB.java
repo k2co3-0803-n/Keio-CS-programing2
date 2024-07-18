@@ -84,20 +84,22 @@ public class DB {
     }
 
     // select
-    public static void selectAllFromStudents() {
+    public static String[][] selectAllFromStudents(){
         String sql = "SELECT * FROM students";
         String[][] data = executeQuery(sql);
 
         // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
+        
+        return data;
     }
 
-    public static void selectAllFromTeachers() {
+    public static String[][] selectAllFromTeachers() {
         String sql = "SELECT * FROM teachers";
         String[][] data = executeQuery(sql);
 
@@ -108,9 +110,11 @@ public class DB {
             }
             System.out.println();
         }
+        
+        return data;
     }
 
-    public static void selectAllFromLecturesView() {
+    public static String[][] selectAllFromLecturesView() {
         String sql = "SELECT * FROM lectures_view";
         String[][] data = executeQuery(sql);
         // debug
@@ -120,9 +124,10 @@ public class DB {
             }
             System.out.println();
         }
+        return data;
     }
 
-    public static void selectLecturesByStudent(String studentID) {
+    public static String[][] selectLecturesByStudent(String studentID) {
         String sql = "SELECT * FROM student_and_lecture_view WHERE student_id = ?";
         String[][] data = executeQuery(sql, studentID);
         for (String[] row : data) {
@@ -131,6 +136,7 @@ public class DB {
             }
             System.out.println();
         }
+        return data;
     }
 
     public static void selectStudentsByLecture(String lectureID) {
@@ -157,7 +163,7 @@ public class DB {
         }
     }
 
-    public static void selectTeachersByLecture(int lectureID) {
+    public static String[][] selectTeachersByLecture(int lectureID) {
         String sql = "SELECT * FROM teacher_and_lecture_view WHERE lecture_id = ?";
         String[][] data = executeQuery(sql, lectureID);
         // debug
@@ -167,6 +173,7 @@ public class DB {
             }
             System.out.println();
         }
+        return data;
     }
 
     public static void selectLecturesByTeacher(String teacherID) {

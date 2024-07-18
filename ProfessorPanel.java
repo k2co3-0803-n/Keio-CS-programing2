@@ -9,13 +9,8 @@ public class ProfessorPanel extends JPanel {
     static JTable table;
 
     public static ProfessorPanel createProfessorPanel() {
-        ArrayList<Professor> professors = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Professor professor = new Professor("ProfessorID" + i, "ProfessorName" + (i + 1),null);
-            professors.add(professor);
-        }
 
-        ProfessorTableModel tableModel = new ProfessorTableModel(professors);
+        ProfessorTableModel tableModel = new ProfessorTableModel(MyApp.professors);
         table = new JTable(tableModel);
 
         // Add a button to the last column
