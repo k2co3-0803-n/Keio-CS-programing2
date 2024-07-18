@@ -16,4 +16,9 @@ public class Professor {
 	public String getName() {
 		return this.professorName;
 	}
+	
+	@Override
+	public String toString() {
+		return this.professorName;
+	}
 }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DB {
-    
+
     // git stash test
-    
+
     private static Connection connection;
 
     static {
@@ -156,9 +156,10 @@ public class DB {
         return data;
     }
 
-    public static void selectAllFromDayOfWeek() {
+    public static String[][] selectAllFromDayOfWeek() {
         String sql = "SELECT * FROM day_of_week";
         String[][] data = executeQuery(sql);
+        return data;
         // // debug
         // for (String[] row : data) {
         // for (String col : row) {
@@ -192,6 +193,12 @@ public class DB {
         // System.out.println();
         // }
     }
+
+    // public static String[][] selectDayOfWeek() {
+    // String sql = "SELECT * FROM day_of_week";
+    // String[][] data = executeQuery(sql);
+    // return data;
+    // }
 
     // edit
     public static void updateStudent(String id, String name) {

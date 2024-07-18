@@ -1,4 +1,5 @@
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,6 +50,47 @@ public class DetailLectureInformation extends MyFrame {
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(lecture);
 		deleteButtton.addActionListener(deleteButtonActionListener);
 
+		// dayofweekのcombobox
+		// 曜日登録用コンボボックス
+		JComboBox<DayOfWeek> dayOfWeekComboBox = new JComboBox<DayOfWeek>(MyApp.dayOfWeeks);
+		dayOfWeekComboBox.setSelectedIndex(-1);
+		dayOfWeekComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox) e.getSource();
+				DayOfWeek selectedDayOfWeek = (DayOfWeek) cb.getSelectedItem();
+				dayOfWeek.setText(selectedDayOfWeek.toString());
+			}
+		});
+		this.add(dayOfWeekComboBox);
+		this.pack();
+		this.setVisible(true);
+
+		JPanel paneDayOfWeek = new JPanel();
+		paneDayOfWeek.setLayout(new GridLayout(1, 0));
+		paneDayOfWeek.add(dayOfWeekLabel);
+		paneDayOfWeek.add(dayOfWeekComboBox);
+		// dayofweekのcombobox終わり
+		//
+
+		// professorのCombobox
+		// 教員登録用コンボボックス
+		Professor[] professorArray = new Professor[MyApp.professors.size()];
+		professorArray = MyApp.professors.toArray(professorArray);
+		JComboBox<Professor> professorComboBox = new JComboBox<>(professorArray);
+		professorComboBox.setSelectedIndex(-1);
+		professorComboBox.addActionListener(e -> {
+			JComboBox cb = (JComboBox) e.getSource();
+			Professor selectedProfessor = (Professor) cb.getSelectedItem();
+			professorID.setText(selectedProfessor.getProfessorID());
+		});
+		this.add(professorComboBox);
+		this.pack();
+		this.setVisible(true);
+		JPanel paneProfessor = new JPanel();
+		paneProfessor.setLayout(new GridLayout(1, 0));
+		paneProfessor.add(professorLabel);
+		paneProfessor.add(professorComboBox);
+
 		FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
 
 		JPanel pane1 = new JPanel(centerLayout);
@@ -63,20 +105,17 @@ public class DetailLectureInformation extends MyFrame {
 		pane3.setLayout(new GridLayout(2, 0));
 		pane3.add(classRoomLabel);
 		pane3.add(classRoom);
-		JPanel pane4 = new JPanel(centerLayout);
-		pane4.setLayout(new GridLayout(2, 0));
-		pane4.add(dayOfWeekLabel);
-		pane4.add(dayOfWeek);
 
 		JPanel panePeriod = new JPanel(centerLayout);
 		panePeriod.setLayout(new GridLayout(2, 0));
 		panePeriod.add(periodLabel);
 		panePeriod.add(period);
+		// 教員登録用combobox終わり
 
-		JPanel pane5 = new JPanel(centerLayout);
-		pane5.setLayout(new GridLayout(2, 0));
-		pane5.add(professorLabel);
-		pane5.add(professorID);
+		// JPanel pane5 = new JPanel(centerLayout);
+		// pane5.setLayout(new GridLayout(2, 0));
+		// pane5.add(professorLabel);
+		// pane5.add(professorID);
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -97,9 +136,9 @@ public class DetailLectureInformation extends MyFrame {
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
-		mainPane.add(pane4);
+		mainPane.add(paneDayOfWeek);
 		mainPane.add(panePeriod);
-		mainPane.add(pane5);
+		mainPane.add(paneProfessor);
 		// mainPane.add(scrollPane);
 		mainPane.add(pane7);
 		mainPane.add(pane6);
@@ -130,7 +169,7 @@ public class DetailLectureInformation extends MyFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			DB.updateLecture(Integer.parseInt(lectureID), lectureName.getText(), classRoom.getText(),
-					dayOfWeek.getText(),
+					DayOfWeek.convertIntToYoubi(dayOfWeek.getText()),
 					period.getText());
 			// 先生の変更はここに、別でDB.insertIntoTeachingLecturesを追記するのが良いと思う。ドロップダウンで、idを代入させるようにする
 			if (!professorID.getText().equals("")) {

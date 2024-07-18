@@ -6,6 +6,8 @@ public class MyApp {
 	static ArrayList<Student> students = new ArrayList<Student>();
 	static ArrayList<Lecture> lectures = new ArrayList<Lecture>();
 	static ArrayList<Professor> professors = new ArrayList<Professor>();
+	
+	static DayOfWeek[] dayOfWeeks = new DayOfWeek[7];
 
 	// 生徒の初期化
 	static void initStudents() {
@@ -56,6 +58,18 @@ public class MyApp {
 			lectures.add(lecture);
 		}
 	}
+	
+	// 曜日の初期化
+	static void initDayOfWeeks() {
+		String[][] dayOfWeekRawData = DB.selectAllFromDayOfWeek();
+		for (String[] dayOfWeekRaw : dayOfWeekRawData) {
+			String dayOfWeekID = dayOfWeekRaw[0];
+			String dayOfWeekName = dayOfWeekRaw[1];
+			DayOfWeek dayOfWeek = new DayOfWeek(dayOfWeekID, dayOfWeekName);
+			dayOfWeeks[Integer.parseInt(dayOfWeekID) - 1] = dayOfWeek;
+		}
+	}
+	
 
 	static void initdata() {
 		MyApp.initStudents();
@@ -66,6 +80,7 @@ public class MyApp {
 	// clase method
 	public static void main(String[] args) {
 		// initialize
+		initDayOfWeeks();
 		MyApp.initdata();
 		Home.createHome();
 	}
