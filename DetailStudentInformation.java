@@ -68,6 +68,7 @@ public class DetailStudentInformation extends MyFrame {
 		Lecture[] lectureArray = new Lecture[MyApp.lectures.size()];
 		lectureArray = MyApp.lectures.toArray(lectureArray);
 		JComboBox<Lecture> registerLectureComboBox = new JComboBox<>(lectureArray);
+		registerLectureComboBox.setSelectedIndex(-1);
 
 		registerLectureComboBox.addActionListener(e -> {
 			JComboBox cb = (JComboBox) e.getSource();
@@ -83,11 +84,55 @@ public class DetailStudentInformation extends MyFrame {
 		paneRegister.add(registerLectureComboBox);
 
 		// コンボボックス終わり
+		//
+		// 履修解除用コンボボックス
+		// registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// registeredLectureArray = MyApp.lectures.toArray(registeredLectureArray);
+		// DB.selectLecturesByStudent(student.getStudentID());を使って、履修中の講義リストをString[][]で取得
+		// それを使って、JComboBoxを作成
+		class SubLecture {
+			private String lectureID;
+			private String lectureName;
 
+			public SubLecture(String lectureID, String lectureName) {
+				this.lectureID = lectureID;
+				this.lectureName = lectureName;
+			}
+
+			@Override
+			public String toString() {
+				return this.lectureName;
+			}
+		}
+
+		// 履修中の授業リストを作成
+		String[][] registeredLectures = DB.selectLecturesByStudent(student.getStudentID());
+		SubLecture[] registeredLectureFormatArray = new SubLecture[registeredLectures.length];
+		for (int i = 0; i < registeredLectures.length; i++) {
+			SubLecture subLecture = new SubLecture(registeredLectures[i][0], registeredLectures[i][1]);
+			registeredLectureFormatArray[i] = subLecture;
+		}
+
+		JComboBox<SubLecture> unregisterLectureComboBox = new JComboBox<>(registeredLectureFormatArray);
+		unregisterLectureComboBox.setSelectedIndex(-1);
+		unregisterLectureComboBox.addActionListener(e -> {
+			JComboBox cb = (JComboBox) e.getSource();
+			SubLecture selectedLecture = (SubLecture) cb.getSelectedItem();
+			unregisterLectureId.setText(selectedLecture.lectureID);
+		});
+		this.add(unregisterLectureComboBox);
+		this.pack();
+		this.setVisible(true);
 		JPanel paneUnregister = new JPanel(centerLayout);
 		paneUnregister.setLayout(new GridLayout(1, 0));
-		paneUnregister.add(unregisterLectureIdLabel);
-		paneUnregister.add(unregisterLectureId);
+		paneUnregister.add(unregisterLectureComboBox);
+
+		// 履修解除用コンボボックス終わり
+
+		// JPanel paneUnregister = new JPanel(centerLayout);
+		// paneUnregister.setLayout(new GridLayout(1, 0));
+		// paneUnregister.add(unregisterLectureIdLabel);
+		// paneUnregister.add(unregisterLectureId);
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -101,7 +146,6 @@ public class DetailStudentInformation extends MyFrame {
 		// mainPane.add(paneRegister);
 		// comboboxを追加する
 		mainPane.add(paneRegister);
-
 		mainPane.add(paneUnregister);
 		mainPane.add(pane6);
 
