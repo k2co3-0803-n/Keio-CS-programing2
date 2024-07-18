@@ -1,14 +1,25 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 // Here, define UI of Register form of new professors
-public class RegisterFormProfessor extends MyFrame{
+public class RegisterFormProfessor extends MyFrame {
     JTextField title;
     JTextField professorName;
     JTextField professor_id;
 
     class ButtonAction implements ActionListener {
+        private JTextField professor_id;
+        private JTextField professorName;
+
+        public ButtonAction(JTextField professor_id, JTextField professorName) {
+            this.professor_id = professor_id;
+            this.professorName = professorName;
+        }
+
         public void actionPerformed(ActionEvent e) {
+            DB.insertIntoTeacher(professor_id.getText(), professorName.getText());
+            MyApp.initdata();
             dispose();
         }
     }
@@ -24,7 +35,7 @@ public class RegisterFormProfessor extends MyFrame{
         professor_id = new JTextField();
 
         JButton addButton = new JButton("追加");
-        ButtonAction buttonListener = new ButtonAction();
+        ButtonAction buttonListener = new ButtonAction(professor_id, professorName);
         addButton.addActionListener(buttonListener);
 
         JPanel pane1 = new JPanel();
@@ -54,4 +65,3 @@ public class RegisterFormProfessor extends MyFrame{
         registerFormProfessor.setVisible(true);
     }
 }
-

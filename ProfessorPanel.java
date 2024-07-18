@@ -7,10 +7,11 @@ import javax.swing.table.TableCellRenderer;
 
 public class ProfessorPanel extends JPanel {
     static JTable table;
+    public static ProfessorTableModel tableModel;
 
     public static ProfessorPanel createProfessorPanel() {
 
-        ProfessorTableModel tableModel = new ProfessorTableModel(MyApp.professors);
+        tableModel = new ProfessorTableModel(MyApp.professors);
         table = new JTable(tableModel);
 
         // Add a button to the last column
@@ -25,11 +26,23 @@ public class ProfessorPanel extends JPanel {
         RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
         buttonRegister.addActionListener(registerButtonActionListener);
 
+        JButton reloadButton = new JButton("Reload");
+        ReloadButtonAction reloadButtonActionLister = new ReloadButtonAction();
+        reloadButton.addActionListener(reloadButtonActionLister);
+
         ProfessorPanel professorPanel = new ProfessorPanel();
+        professorPanel.add(reloadButton, BorderLayout.EAST);
         professorPanel.add(buttonRegister, BorderLayout.NORTH);
         professorPanel.add(scrollPane, BorderLayout.CENTER);
 
         return professorPanel;
+    }
+
+    public static class ReloadButtonAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Update the table
+            tableModel.setProfessors(MyApp.professors);
+        }
     }
 
     public static class RegisterButtonAction implements ActionListener {
@@ -40,7 +53,7 @@ public class ProfessorPanel extends JPanel {
 
     static class ProfessorTableModel extends AbstractTableModel {
         private ArrayList<Professor> professors;
-        private String[] columnNames = {"ID", "Name", "Details"};
+        private String[] columnNames = { "ID", "Name", "Details" };
 
         public ProfessorTableModel(ArrayList<Professor> professors) {
             this.professors = professors;
@@ -52,6 +65,11 @@ public class ProfessorPanel extends JPanel {
 
         public int getColumnCount() {
             return columnNames.length;
+        }
+
+        public void setProfessors(ArrayList<Professor> professors) {
+            this.professors = professors;
+            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -80,7 +98,8 @@ public class ProfessorPanel extends JPanel {
             setOpaque(true);
         }
 
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
             setText((value == null) ? "" : value.toString());
             return this;
         }
@@ -102,7 +121,8 @@ public class ProfessorPanel extends JPanel {
             });
         }
 
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+                int column) {
             label = (value == null) ? "" : value.toString();
             button.setText(label);
             isPushed = true;
@@ -113,7 +133,7 @@ public class ProfessorPanel extends JPanel {
             if (isPushed) {
                 // Show dialog with professor details
                 int row = table.getSelectedRow();
-                Professor professor = ((ProfessorTableModel)table.getModel()).professors.get(row);
+                Professor professor = ((ProfessorTableModel) table.getModel()).professors.get(row);
                 DetailProfessorInformation.createDetailProfessorInformation(professor);
             }
             isPushed = false;
