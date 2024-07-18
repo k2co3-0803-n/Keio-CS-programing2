@@ -1,21 +1,35 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 // Here, define UI of Register form of new professors
-public class RegisterFormProfessor extends MyFrame{
+public class RegisterFormProfessor extends MyFrame {
     JTextField title;
     JTextField professorName;
     JTextField professor_id;
+    Runnable reloadCallback; //追加
 
     class ButtonAction implements ActionListener {
+        private JTextField professor_id;
+        private JTextField professorName;
+
+        public ButtonAction(JTextField professor_id, JTextField professorName) {
+            this.professor_id = professor_id;
+            this.professorName = professorName;
+        }
+
         public void actionPerformed(ActionEvent e) {
+            DB.insertIntoTeacher(professor_id.getText(), professorName.getText());
+            MyApp.initdata();
+            reloadCallback.run(); //追加
             dispose();
         }
     }
 
     // Constructor
-    public RegisterFormProfessor(String frameName) {
+    public RegisterFormProfessor(String frameName, Runnable reloadCallback) { //変更
         super(frameName);
+        this.reloadCallback = reloadCallback; // 追加
         JLabel titleLabel = new JLabel("新しい教授を追加");
         JLabel professorNameLabel = new JLabel("氏名");
         JLabel professor_idLabel = new JLabel("教授番号");
@@ -24,7 +38,7 @@ public class RegisterFormProfessor extends MyFrame{
         professor_id = new JTextField();
 
         JButton addButton = new JButton("追加");
-        ButtonAction buttonListener = new ButtonAction();
+        ButtonAction buttonListener = new ButtonAction(professor_id, professorName);
         addButton.addActionListener(buttonListener);
 
         JPanel pane1 = new JPanel();
@@ -49,9 +63,8 @@ public class RegisterFormProfessor extends MyFrame{
         this.setSize(500, 600);
     }
 
-    public static void createRegisterFormProfessor() {
-        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("新しい教授を追加");
+    public static void createRegisterFormProfessor(Runnable reloadCallback) { //変更
+        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("新しい教授を追加", reloadCallback);
         registerFormProfessor.setVisible(true);
     }
 }
-

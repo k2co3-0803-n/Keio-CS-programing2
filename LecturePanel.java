@@ -7,24 +7,15 @@ import javax.swing.table.TableCellRenderer;
 
 public class LecturePanel extends JPanel {
     static JTable table;
+    public static LectureTableModel tableModel;
 
     // class method
     // Later, this method will be called from Home.java
     public static LecturePanel createLecturePanel() {
         // Create a list of lectures. This ArrayList has the actuak data of lectures.
 
-<<<<<<< HEAD
-        LectureTableModel tableModel = new LectureTableModel(MyApp.lectures);
-=======
-		// temporary data
-		for (int i = 0; i < 100; i++) {
-			for (int j = 0; j < 5; j++) {
-				Student students = new Student(TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, lectures)
-			}
-			Lecture lecture = new Lecture("ID" + i, "Lecture " + (i + 1), "Room " + (i % 10), "Day " + (i % 7), "Professor " + (i % 5), null);
-			lectures.add(lecture);
-		}
->>>>>>> da8b22b8c8209cc3ad494af0c7f03b3663b41603
+
+        tableModel = new LectureTableModel(MyApp.lectures);
 
         table = new JTable(tableModel);
         // Add a button to the last column
@@ -52,7 +43,10 @@ public class LecturePanel extends JPanel {
     // ActionListener for the button to register a new lecture
     static class RegisterButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            RegisterFormLecture.createRegisterFormLecture();
+            RegisterFormLecture.createRegisterFormLecture(() -> {
+                // Update the table
+                tableModel.setLectures(MyApp.lectures);
+            });
         }
     }
 
@@ -72,14 +66,15 @@ public class LecturePanel extends JPanel {
         public int getColumnCount() {
             return columnNames.length;
         }
-        
-        // public void setLectures(ArrayList<Lecture> lectures) {
-        //     this.lectures = lectures;
-        //     fireTableDataChanged();  // モデルの変更を通知してテーブルを再描画
-        // }
-        
 
-    
+        // public void setLectures(ArrayList<Lecture> lectures) {
+        // this.lectures = lectures;
+        // fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
+        // }
+        public void setLectures(ArrayList<Lecture> lectures) {
+            this.lectures = lectures;
+            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
+        }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
             Lecture lecture = lectures.get(rowIndex);

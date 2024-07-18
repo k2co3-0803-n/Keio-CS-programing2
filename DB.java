@@ -59,7 +59,7 @@ public class DB {
     public static void deleteFromTeacher(String id) {
         String sql = "DELETE FROM teaching_lectures WHERE teacher_id = ?";
         executeUpdate(sql, id);
-        sql = "DELETE FROM teacher WHERE id = ?";
+        sql = "DELETE FROM teachers WHERE id = ?";
         executeUpdate(sql, id);
     }
 
@@ -84,18 +84,18 @@ public class DB {
     }
 
     // select
-    public static String[][] selectAllFromStudents(){
+    public static String[][] selectAllFromStudents() {
         String sql = "SELECT * FROM students";
         String[][] data = executeQuery(sql);
 
         // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
         // }
-        
+        // System.out.println();
+        // }
+
         return data;
     }
 
@@ -105,12 +105,12 @@ public class DB {
 
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
         // }
-        
+        // System.out.println();
+        // }
+
         return data;
     }
 
@@ -119,10 +119,10 @@ public class DB {
         String[][] data = executeQuery(sql);
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
+        // }
+        // System.out.println();
         // }
         return data;
     }
@@ -131,24 +131,25 @@ public class DB {
         String sql = "SELECT * FROM student_and_lecture_view WHERE student_id = ?";
         String[][] data = executeQuery(sql, studentID);
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
+        // }
+        // System.out.println();
         // }
         return data;
     }
 
-    public static void selectStudentsByLecture(String lectureID) {
+    public static String[][] selectStudentsByLecture(String lectureID) {
         String sql = "SELECT * FROM student_and_lecture_view WHERE lecture_id = ?";
         String[][] data = executeQuery(sql, lectureID);
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
         // }
+        // System.out.println();
+        // }
+        return data;
     }
 
     public static void selectAllFromDayOfWeek() {
@@ -156,10 +157,10 @@ public class DB {
         String[][] data = executeQuery(sql);
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
+        // }
+        // System.out.println();
         // }
     }
 
@@ -168,10 +169,10 @@ public class DB {
         String[][] data = executeQuery(sql, lectureID);
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
+        // }
+        // System.out.println();
         // }
         return data;
     }
@@ -181,10 +182,10 @@ public class DB {
         String[][] data = executeQuery(sql, teacherID);
         // // debug
         // for (String[] row : data) {
-        //     for (String col : row) {
-        //         System.out.print(col + "\t");
-        //     }
-        //     System.out.println();
+        // for (String col : row) {
+        // System.out.print(col + "\t");
+        // }
+        // System.out.println();
         // }
     }
 

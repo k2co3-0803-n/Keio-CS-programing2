@@ -8,20 +8,22 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import javax.swing.JTextField;
 
 public class DetailStudentInformation extends MyFrame {
 	public DetailStudentInformation(String frameName, Student student) {
 		super(frameName);
 		JLabel idLabel = new JLabel("Student ID: " + student.getStudentID());
-		JLabel studentNameLabel = new JLabel("Student Name: " + student.getName());
+		JLabel studentNameLabel = new JLabel("Student Name: ");
+		JTextField studentName = new JTextField(student.getName());
 
 		String[][] taking_lectures = DB.selectLecturesByStudent(student.getStudentID());
 
 		// TODO add JTable which shows the list of lectures the student is taking.
 
 		JButton editButton = new JButton("edit");
-		ButtonAction buttonListener = new ButtonAction();
-		editButton.addActionListener(buttonListener);
+		EditButtonAction editButtonListener = new EditButtonAction(student.getStudentID(), studentName);
+		editButton.addActionListener(editButtonListener);
 		JButton deleteButton = new JButton("delete");
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(student);
 		deleteButton.addActionListener(deleteButtonActionListener);
@@ -29,13 +31,15 @@ public class DetailStudentInformation extends MyFrame {
 		FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
 
 		JPanel pane1 = new JPanel(centerLayout);
-		pane1.setLayout(new GridLayout(2, 0));
+		pane1.setLayout(new GridLayout(1, 0));
 		pane1.add(idLabel);
 		pane1.setBackground(Color.red);
 		JPanel pane2 = new JPanel(centerLayout);
-		pane2.setLayout(new GridLayout(2, 0));
+		pane2.setLayout(new GridLayout(1, 0));
 		pane2.add(studentNameLabel);
+		pane2.add(studentName);
 
+		// taking lectures list
 		JPanel pane3 = new JPanel(centerLayout);
 		pane3.setLayout(new GridLayout(0, 1));
 		for (String[] lecture : taking_lectures) {
@@ -58,8 +62,19 @@ public class DetailStudentInformation extends MyFrame {
 		this.setSize(500, 600);
 	}
 
-	class ButtonAction implements ActionListener {
+	class EditButtonAction implements ActionListener {
+		private String id;
+		private JTextField nameField;
+
+		public EditButtonAction(String id, JTextField nameField) {
+			this.id = id;
+			this.nameField = nameField;
+		}
+
 		public void actionPerformed(ActionEvent e) {
+			String name = nameField.getText();
+			DB.updateStudent(id, name);
+			MyApp.initdata();
 			dispose();
 		}
 	}
@@ -76,65 +91,12 @@ public class DetailStudentInformation extends MyFrame {
 			int response = JOptionPane.showConfirmDialog(null, "本当にこの生徒を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.YES_OPTION) {
-				deleteStudent();
+				DB.deleteFromStudents(student.getStudentID());
+				MyApp.initdata();
+				dispose();
 			}
 		}
 
-		// static class StudentTableModel extends AbstractTableModel {
-		// private List<Student> students;
-		// private String[] columnNames = {"ID", "Name"};
-
-		// // Constructor
-		// public StudentTableModel(ArrayList<Student> students) {
-		// this.students = students;
-		// }
-
-		// public int getRowCount() {
-		// return students.size();
-		// }
-
-		// public int getColumnCount() {
-		// return columnNames.length;
-		// }
-
-		// public Object getValueAt(int rowIndex, int columnIndex) {
-		// Student student = students.get(rowIndex);
-		// switch (columnIndex) {
-		// case 0:
-		// return student.getStudentID();
-		// case 1:
-		// return student.getStudentName();
-		// default:
-		// return "Details";
-		// }
-		// }
-
-		// public String getColumnName(int column) {
-		// return columnNames[column];
-		// }
-		// }
-
-		private void deleteStudent() {
-			// Database.deleteLecture(lecture.getLectureID());
-
-			// String lectureID = lecture.getLectureID()
-			// int rowIndex = -1; // 初期値は見つからないことを示す-1
-			// for (int i = 0; i < tableModel.getRowCount(); i++) {
-			// if (tableModel.getValueAt(i, idColumnIndex).equals(lectureID)) {
-			// rowIndex = i;
-			// break;
-			// }
-			// }
-			// if (rowIndex == -1) {
-			// return;
-			// }
-
-			// if (rowIndex != -1) {
-			// tableModel.removeRow(rowIndex);
-			// table.repaint();
-			dispose();
-			// }
-		}
 	}
 
 	public static void createDetailStudentInformation(Student student) {

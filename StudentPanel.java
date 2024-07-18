@@ -25,25 +25,15 @@ public class StudentPanel extends JPanel {
         RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
         buttonRegister.addActionListener(registerButtonActionListener);
 
-        JButton reloadButton = new JButton("Reload");
-        ReloadButtonAction reloadButtonActionListener = new ReloadButtonAction();
-        reloadButton.addActionListener(reloadButtonActionListener);
 
         StudentPanel studentPanel = new StudentPanel();
         studentPanel.setLayout(new BorderLayout());
-        studentPanel.add(reloadButton, BorderLayout.EAST);
         studentPanel.add(buttonRegister, BorderLayout.NORTH);
         studentPanel.add(scrollPane, BorderLayout.CENTER);
 
         return studentPanel;
     }
 
-    public static class ReloadButtonAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            // Update the table
-            tableModel.setLectures(MyApp.students);
-        }
-    }
 
     public static class RegisterButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
