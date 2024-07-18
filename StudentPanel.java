@@ -46,7 +46,9 @@ public class StudentPanel extends JPanel {
 
     public static class RegisterButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            RegisterFormStudent.createRegisterFormStudent();
+            RegisterFormStudent.createRegisterFormStudent(() -> {
+                tableModel.setLectures(MyApp.students);
+            });
         }
     }
 

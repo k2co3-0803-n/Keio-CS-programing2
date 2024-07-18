@@ -11,6 +11,7 @@ public class RegisterFormLecture extends MyFrame {
 	JTextField dayOfWeek;
 	JTextField period;
 	JTextField professor;
+	Runnable reloadCallBack;
 
 	class ButtonAction implements ActionListener {
 		// constructor
@@ -31,12 +32,14 @@ public class RegisterFormLecture extends MyFrame {
 					period.getText());
 			MyApp.initData();
 			dispose();
+			reloadCallBack.run();
 		}
 	}
 
 	// Constructor
-	public RegisterFormLecture(String frameName) {
+	public RegisterFormLecture(String frameName, Runnable reloadCallBack) {
 		super(frameName);
+		this.reloadCallBack = reloadCallBack;
 		JLabel titleLabel = new JLabel("Register a new lecture");
 		JLabel lectureNameLabel = new JLabel("Lecture Name");
 		JLabel classRoomLabel = new JLabel("Class Room");
@@ -102,8 +105,8 @@ public class RegisterFormLecture extends MyFrame {
 		this.setSize(500, 600);
 	}
 
-	public static void createRegisterFormLecture() {
-		RegisterFormLecture registerFormLecture = new RegisterFormLecture("Register a new lecture");
+	public static void createRegisterFormLecture(Runnable reloadCallBack) {
+		RegisterFormLecture registerFormLecture = new RegisterFormLecture("Register a new lecture", reloadCallBack);
 		registerFormLecture.setVisible(true);
 	}
 }

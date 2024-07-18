@@ -6,18 +6,21 @@ public class RegisterFormStudent extends MyFrame {
 	JTextField title;
 	JTextField studentName;
 	JTextField student_id;
+	Runnable reloadCallBack;
 
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			DB.insertIntoStudents(student_id.getText(), studentName.getText());
 			MyApp.initData();
 			dispose();
+			reloadCallBack.run();
 		}
 	}
 
 	// Constructor
-	public RegisterFormStudent(String frameName) {
+	public RegisterFormStudent(String frameName, Runnable reloadCallBack) {
 		super(frameName);
+		this.reloadCallBack = reloadCallBack;
 		JLabel titleLabel = new JLabel("Register a new student");
 		JLabel studentNameLabel = new JLabel("Name");
 		JLabel student_idLabel = new JLabel("Student ID");
@@ -51,8 +54,8 @@ public class RegisterFormStudent extends MyFrame {
 		this.setSize(500, 600);
 	}
 
-	public static void createRegisterFormStudent() {
-		RegisterFormStudent registerFormLecture = new RegisterFormStudent("Register a new student");
+	public static void createRegisterFormStudent(Runnable reloadCallBack) {
+		RegisterFormStudent registerFormLecture = new RegisterFormStudent("Register a new student", reloadCallBack);
 		registerFormLecture.setVisible(true);
 	}
 }

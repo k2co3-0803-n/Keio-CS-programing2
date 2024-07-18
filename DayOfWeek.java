@@ -24,23 +24,22 @@ public class DayOfWeek {
 
 	static String convertIntToYoubi(String dayOfWeek) {
 		switch (dayOfWeek) {
-			case "月曜日":
+			case "Monday":
 				return "1";
-			case "火曜日":
+			case "Tuesday":
 				return "2";
-			case "水曜日":
+			case "Wednesday":
 				return "3";
-			case "木曜日":
+			case "Thursday":
 				return "4";
-			case "金曜日":
+			case "Friday":
 				return "5";
-			case "土曜日":
+			case "Saturday":
 				return "6";
-			case "日曜日":
+			case "Sunday":
 				return "7";
 			default:
-				return "エラー";
+				return "Error";
 		}
-
 	}
 }

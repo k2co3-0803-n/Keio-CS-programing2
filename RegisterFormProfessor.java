@@ -7,6 +7,7 @@ public class RegisterFormProfessor extends MyFrame {
     JTextField title;
     JTextField professorName;
     JTextField professor_id;
+    Runnable reloadCallBack;
 
     class ButtonAction implements ActionListener {
         private JTextField professor_id;
@@ -20,13 +21,15 @@ public class RegisterFormProfessor extends MyFrame {
         public void actionPerformed(ActionEvent e) {
             DB.insertIntoTeacher(professor_id.getText(), professorName.getText());
             MyApp.initData();
+            reloadCallBack.run();
             dispose();
         }
     }
 
     // Constructor
-    public RegisterFormProfessor(String frameName) {
+    public RegisterFormProfessor(String frameName, Runnable reloadCallBack) {
         super(frameName);
+        this.reloadCallBack = reloadCallBack;
         JLabel titleLabel = new JLabel("add a new professor");
         JLabel professorNameLabel = new JLabel("name");
         JLabel professor_idLabel = new JLabel("Professor ID");
@@ -60,8 +63,8 @@ public class RegisterFormProfessor extends MyFrame {
         this.setSize(500, 600);
     }
 
-    public static void createRegisterFormProfessor() {
-        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("add a new professor");
+    public static void createRegisterFormProfessor(Runnable reloadCallBack) {
+        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("add a new professor", reloadCallBack);
         registerFormProfessor.setVisible(true);
     }
 }

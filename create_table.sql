@@ -1,7 +1,6 @@
 PRAGMA foreign_keys=OFF;
 
-
--- 依存関係に基づいてテーブルを作成
+-- Create tables based on dependencies
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS teachers;
 DROP TABLE IF EXISTS day_of_week;
@@ -12,30 +11,28 @@ DROP VIEW IF EXISTS student_and_lecture_view;
 DROP VIEW IF EXISTS teacher_and_lecture_view;
 DROP VIEW IF EXISTS lectures_view;
 
-
-
 --
--- エンティティ
+-- Entities
 --
--- 生徒テーブル
+-- Students table
 CREATE TABLE students (
 	id VARCHAR PRIMARY KEY,
 	name VARCHAR
 );
 
--- 教員テーブル
+-- Teachers table
 CREATE TABLE teachers (
 	id VARCHAR PRIMARY KEY,
 	name VARCHAR
 );
 
--- 曜日テーブル
+-- Days of the week table
 CREATE TABLE day_of_week (
 	id VARCHAR PRIMARY KEY,
 	name VARCHAR
 );
 
--- 講義テーブル
+-- Lectures table
 CREATE TABLE lectures (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name VARCHAR,
@@ -46,9 +43,9 @@ CREATE TABLE lectures (
 );
 
 --
--- 関連
+-- Relationships
 --
--- 受講テーブル
+-- Enrollment table
 CREATE TABLE taking_lectures (
 	student_id VARCHAR,
 	lecture_id INTEGER,
@@ -57,7 +54,7 @@ CREATE TABLE taking_lectures (
 	PRIMARY KEY (student_id, lecture_id)
 );
 
--- 担当テーブル
+-- Teaching table
 CREATE TABLE teaching_lectures (
 	teacher_id VARCHAR,
 	lecture_id INTEGER,
@@ -66,11 +63,10 @@ CREATE TABLE teaching_lectures (
 	PRIMARY KEY (teacher_id, lecture_id)
 );
 
-
 --
--- ビューの作成
+-- Views
 --
--- 生徒の受講一覧、また講義の受講生と一覧ビュー
+-- View of students and their enrolled lectures
 CREATE VIEW student_and_lecture_view AS
 SELECT 
     l.id AS lecture_id, 
@@ -84,8 +80,7 @@ JOIN
 JOIN 
     lectures l ON tl.lecture_id = l.id;
 
-
--- 教員の担当一覧ビュー
+-- View of teachers and their assigned lectures
 CREATE VIEW teacher_and_lecture_view AS
 SELECT 
     l.id AS lecture_id, 
@@ -99,7 +94,7 @@ JOIN
 JOIN 
     lectures l ON tl.lecture_id = l.id;
 
--- 講義の曜日を名前に変換したビュー
+-- View converting day_of_week_id to day_of_week name
 CREATE VIEW lectures_view AS
 SELECT 
 	l.id,
@@ -111,8 +106,5 @@ FROM
     lectures l
 JOIN 
     day_of_week d ON l.day_of_week_id = d.id;
-
-
-
 
 PRAGMA foreign_keys = ON;

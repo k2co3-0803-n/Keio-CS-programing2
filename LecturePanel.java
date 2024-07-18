@@ -52,7 +52,9 @@ public class LecturePanel extends JPanel {
     // ActionListener for the button to register a new lecture
     static class RegisterButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            RegisterFormLecture.createRegisterFormLecture();
+            RegisterFormLecture.createRegisterFormLecture(() -> {
+                tableModel.setLectures(MyApp.lectures);
+            });
         }
     }
 

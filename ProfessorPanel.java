@@ -47,7 +47,9 @@ public class ProfessorPanel extends JPanel {
 
     public static class RegisterButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            RegisterFormProfessor.createRegisterFormProfessor();
+            RegisterFormProfessor.createRegisterFormProfessor(() -> {
+                tableModel.setProfessors(MyApp.professors);
+            });
         }
     }
 
