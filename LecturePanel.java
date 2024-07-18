@@ -13,7 +13,18 @@ public class LecturePanel extends JPanel {
     public static LecturePanel createLecturePanel() {
         // Create a list of lectures. This ArrayList has the actuak data of lectures.
 
+<<<<<<< HEAD
         LectureTableModel tableModel = new LectureTableModel(MyApp.lectures);
+=======
+		// temporary data
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 5; j++) {
+				Student students = new Student(TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, lectures)
+			}
+			Lecture lecture = new Lecture("ID" + i, "Lecture " + (i + 1), "Room " + (i % 10), "Day " + (i % 7), "Professor " + (i % 5), null);
+			lectures.add(lecture);
+		}
+>>>>>>> da8b22b8c8209cc3ad494af0c7f03b3663b41603
 
         table = new JTable(tableModel);
         // Add a button to the last column
