@@ -139,7 +139,7 @@ public class DB {
         return data;
     }
 
-    public static void selectStudentsByLecture(String lectureID) {
+    public static String[][] selectStudentsByLecture(String lectureID) {
         String sql = "SELECT * FROM student_and_lecture_view WHERE lecture_id = ?";
         String[][] data = executeQuery(sql, lectureID);
         // // debug
@@ -149,6 +149,7 @@ public class DB {
         //     }
         //     System.out.println();
         // }
+        return data;
     }
 
     public static void selectAllFromDayOfWeek() {

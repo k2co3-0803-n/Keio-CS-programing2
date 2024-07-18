@@ -39,6 +39,7 @@ public class DetailStudentInformation extends MyFrame {
 		pane2.add(studentNameLabel);
 		pane2.add(studentName);
 
+		// taking lectures list
 		JPanel pane3 = new JPanel(centerLayout);
 		pane3.setLayout(new GridLayout(0, 1));
 		for (String[] lecture : taking_lectures) {
