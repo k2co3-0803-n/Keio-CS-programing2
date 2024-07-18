@@ -20,11 +20,11 @@ public class DetailStudentInformation extends MyFrame {
 		JTextField studentName = new JTextField(student.getName());
 
 		// 履修登録用のテキストフィールド.あとでドロップダウンにするかも
-		JLabel registerLectureIdLabel = new JLabel("履修登録する講義ID: ");
+		JLabel registerLectureIdLabel = new JLabel("履修登録する講義: ");
 		JTextField registerLectureId = new JTextField();
 
 		// 履修解除用のテキストフィールド.あとでドロップダウンにするかも
-		JLabel unregisterLectureIdLabel = new JLabel("履修解除する講義ID: ");
+		JLabel unregisterLectureIdLabel = new JLabel("履修解除する講義: ");
 		JTextField unregisterLectureId = new JTextField();
 
 		String[][] taking_lectures = DB.selectLecturesByStudent(student.getStudentID());
@@ -44,7 +44,6 @@ public class DetailStudentInformation extends MyFrame {
 		JPanel pane1 = new JPanel(centerLayout);
 		pane1.setLayout(new GridLayout(1, 0));
 		pane1.add(idLabel);
-		pane1.setBackground(Color.red);
 		JPanel pane2 = new JPanel(centerLayout);
 		pane2.setLayout(new GridLayout(1, 0));
 		pane2.add(studentNameLabel);
@@ -52,6 +51,8 @@ public class DetailStudentInformation extends MyFrame {
 
 		// taking lectures list
 		JPanel pane3 = new JPanel(centerLayout);
+		JLabel takingLecturesLabel = new JLabel("Taking Lectures: ");
+		pane3.add(takingLecturesLabel);
 		pane3.setLayout(new GridLayout(0, 1));
 		for (String[] lecture : taking_lectures) {
 			JLabel lectureLabel = new JLabel("ID: " + lecture[0] + " 講義名: " + lecture[1]);
@@ -81,6 +82,7 @@ public class DetailStudentInformation extends MyFrame {
 
 		JPanel paneRegister = new JPanel(centerLayout);
 		paneRegister.setLayout(new GridLayout(1, 0));
+		paneRegister.add(registerLectureIdLabel);
 		paneRegister.add(registerLectureComboBox);
 
 		// コンボボックス終わり
@@ -125,6 +127,7 @@ public class DetailStudentInformation extends MyFrame {
 		this.setVisible(true);
 		JPanel paneUnregister = new JPanel(centerLayout);
 		paneUnregister.setLayout(new GridLayout(1, 0));
+		paneUnregister.add(unregisterLectureIdLabel);
 		paneUnregister.add(unregisterLectureComboBox);
 
 		// 履修解除用コンボボックス終わり

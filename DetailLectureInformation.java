@@ -96,7 +96,6 @@ public class DetailLectureInformation extends MyFrame {
 		JPanel pane1 = new JPanel(centerLayout);
 		pane1.setLayout(new GridLayout(2, 0));
 		pane1.add(idLabel);
-		pane1.setBackground(Color.red);
 		JPanel pane2 = new JPanel(centerLayout);
 		pane2.setLayout(new GridLayout(2, 0));
 		pane2.add(lectureNameLabel);
@@ -124,6 +123,8 @@ public class DetailLectureInformation extends MyFrame {
 		String[][] taking_students = DB.selectStudentsByLecture(lecture.getLectureID());
 		JPanel pane7 = new JPanel(centerLayout);
 		pane7.setLayout(new GridLayout(0, 1));
+		JLabel studentLabelTitle = new JLabel("履修学生");
+		pane7.add(studentLabelTitle);
 		for (String[] student : taking_students) {
 			JLabel studentLabel = new JLabel("ID: " + student[2] + " 氏名: " + student[3]);
 			pane7.add(studentLabel);

@@ -33,7 +33,6 @@ public class DetailProfessorInformation extends MyFrame {
         JPanel pane1 = new JPanel(centerLayout);
         pane1.setLayout(new GridLayout(2, 0));
         pane1.add(idLabel);
-        pane1.setBackground(Color.red);
         JPanel pane2 = new JPanel(centerLayout);
         pane2.setLayout(new GridLayout(2, 0));
         pane2.add(professorNameLabel);
