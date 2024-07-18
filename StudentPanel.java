@@ -7,10 +7,11 @@ import javax.swing.table.TableCellRenderer;
 
 public class StudentPanel extends JPanel {
     static JTable table;
+    public static StudentTableModel tableModel;
 
     public static StudentPanel createStudentPanel() {
 
-        StudentTableModel tableModel = new StudentTableModel(MyApp.students);
+        tableModel = new StudentTableModel(MyApp.students);
         table = new JTable(tableModel);
 
         // Add a button to the last column
@@ -25,11 +26,23 @@ public class StudentPanel extends JPanel {
         RegisterButtonAction registerButtonActionListener = new RegisterButtonAction();
         buttonRegister.addActionListener(registerButtonActionListener);
 
+        JButton reloadButton = new JButton("Reload");
+        ReloadButtonAction reloadButtonActionLister = new ReloadButtonAction();
+        reloadButton.addActionListener(reloadButtonActionLister);
+
         StudentPanel studentPanel = new StudentPanel();
+        studentPanel.add(reloadButton, BorderLayout.EAST);
         studentPanel.add(buttonRegister, BorderLayout.NORTH);
         studentPanel.add(scrollPane, BorderLayout.CENTER);
 
         return studentPanel;
+    }
+
+    public static class ReloadButtonAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Update the table
+            tableModel.setLectures(MyApp.students);
+        }
     }
 
     public static class RegisterButtonAction implements ActionListener {
@@ -52,6 +65,11 @@ public class StudentPanel extends JPanel {
 
         public int getColumnCount() {
             return columnNames.length;
+        }
+
+        public void setLectures(ArrayList<Student> students) {
+            this.students = students;
+            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {

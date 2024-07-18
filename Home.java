@@ -16,7 +16,6 @@ public class Home extends MyFrame {
 	public Home(String title) {
 		super(title); // Constructor of super class
 		// test: 生徒一覧を取得をテスト
-		String[][] data = DB.selectAllFromStudents();
 
 		JLabel label1 = new JLabel("Lecture Manegement System");
 		JLabel label2 = new JLabel("Rakuta");

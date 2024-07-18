@@ -1,14 +1,19 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 // Here, define UI of Register form of new students
-public class RegisterFormStudent extends MyFrame{
+public class RegisterFormStudent extends MyFrame {
 	JTextField title;
 	JTextField studentName;
 	JTextField student_id;
 
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("insert student into DB");
+			DB.insertIntoStudents(student_id.getText(), studentName.getText());
+			MyApp.initdata();
+			// ここでパネルを再描画したい
 			dispose();
 		}
 	}
@@ -48,6 +53,7 @@ public class RegisterFormStudent extends MyFrame{
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
 		this.setSize(500, 600);
 	}
+
 	public static void createRegisterFormStudent() {
 		RegisterFormStudent registerFormLecture = new RegisterFormStudent("新しい生徒を追加");
 		registerFormLecture.setVisible(true);

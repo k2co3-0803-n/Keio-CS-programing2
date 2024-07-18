@@ -9,6 +9,7 @@ public class MyApp {
 
 	// 生徒の初期化
 	static void initStudents() {
+		students.clear();
 		String[][] studentsRawData = DB.selectAllFromStudents();
 		for (String[] studentRawData : studentsRawData) {
 			String studentID = studentRawData[0];
@@ -17,9 +18,10 @@ public class MyApp {
 			students.add(student);
 		}
 	}
-	
+
 	// 教員の初期化
 	static void initTeachers() {
+		professors.clear();
 		String[][] teachersRawData = DB.selectAllFromTeachers();
 		for (String[] teacherRawData : teachersRawData) {
 			String teacherID = teacherRawData[0];
@@ -28,10 +30,11 @@ public class MyApp {
 			professors.add(teacher);
 		}
 	}
-	
+
 	// 講義の初期化
 	// selectAllFromLecturesView()を使う
 	static void initLectures() {
+		lectures.clear();
 		String[][] lecturesRawData = DB.selectAllFromLecturesView();
 		for (String[] lectureRawData : lecturesRawData) {
 			String lectureID = lectureRawData[0];
@@ -48,21 +51,22 @@ public class MyApp {
 				professorInChargeExist = true;
 			}
 
-			Lecture lecture = new Lecture(lectureID, lectureName, classRoom, dayOfWeek, period, professorInChargeExist ? professorInCharge : "");
+			Lecture lecture = new Lecture(lectureID, lectureName, classRoom, dayOfWeek, period,
+					professorInChargeExist ? professorInCharge : "");
 			lectures.add(lecture);
 		}
 	}
-	
 
-	
+	static void initdata() {
+		MyApp.initStudents();
+		MyApp.initTeachers();
+		MyApp.initLectures();
+	}
 
 	// clase method
 	public static void main(String[] args) {
 		// initialize
-		MyApp.initStudents();
-		MyApp.initTeachers();
-		MyApp.initLectures();
-		
+		MyApp.initdata();
 		Home.createHome();
 	}
 }

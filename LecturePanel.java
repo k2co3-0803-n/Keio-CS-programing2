@@ -61,6 +61,14 @@ public class LecturePanel extends JPanel {
         public int getColumnCount() {
             return columnNames.length;
         }
+        
+        // public void setLectures(ArrayList<Lecture> lectures) {
+        //     this.lectures = lectures;
+        //     fireTableDataChanged();  // モデルの変更を通知してテーブルを再描画
+        // }
+        
+
+    
 
         public Object getValueAt(int rowIndex, int columnIndex) {
             Lecture lecture = lectures.get(rowIndex);

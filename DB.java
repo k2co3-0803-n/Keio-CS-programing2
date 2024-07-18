@@ -103,13 +103,13 @@ public class DB {
         String sql = "SELECT * FROM teachers";
         String[][] data = executeQuery(sql);
 
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
         
         return data;
     }
@@ -117,75 +117,75 @@ public class DB {
     public static String[][] selectAllFromLecturesView() {
         String sql = "SELECT * FROM lectures_view";
         String[][] data = executeQuery(sql);
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
         return data;
     }
 
     public static String[][] selectLecturesByStudent(String studentID) {
         String sql = "SELECT * FROM student_and_lecture_view WHERE student_id = ?";
         String[][] data = executeQuery(sql, studentID);
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
         return data;
     }
 
     public static void selectStudentsByLecture(String lectureID) {
         String sql = "SELECT * FROM student_and_lecture_view WHERE lecture_id = ?";
         String[][] data = executeQuery(sql, lectureID);
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
     }
 
     public static void selectAllFromDayOfWeek() {
         String sql = "SELECT * FROM day_of_week";
         String[][] data = executeQuery(sql);
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
     }
 
     public static String[][] selectTeachersByLecture(int lectureID) {
         String sql = "SELECT * FROM teacher_and_lecture_view WHERE lecture_id = ?";
         String[][] data = executeQuery(sql, lectureID);
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
         return data;
     }
 
     public static void selectLecturesByTeacher(String teacherID) {
         String sql = "SELECT * FROM teacher_and_lecture_view WHERE teacher_id = ?";
         String[][] data = executeQuery(sql, teacherID);
-        // debug
-        for (String[] row : data) {
-            for (String col : row) {
-                System.out.print(col + "\t");
-            }
-            System.out.println();
-        }
+        // // debug
+        // for (String[] row : data) {
+        //     for (String col : row) {
+        //         System.out.print(col + "\t");
+        //     }
+        //     System.out.println();
+        // }
     }
 
     // edit
