@@ -40,4 +40,9 @@ public class Lecture {
 	public String getProfessorInCharge() {
 		return this.professorInCharge;
 	}
+	
+	@Override
+	public String toString() {
+		return this.lectureName;
+	}
 }

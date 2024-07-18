@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 
+// git stash test
+
 public class DetailLectureInformation extends MyFrame {
 	public DetailLectureInformation(String frameName, Lecture lecture) {
 		super(frameName);

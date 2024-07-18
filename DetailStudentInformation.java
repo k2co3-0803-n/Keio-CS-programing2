@@ -1,4 +1,6 @@
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -56,10 +58,31 @@ public class DetailStudentInformation extends MyFrame {
 			pane3.add(lectureLabel);
 		}
 
+		// JPanel paneRegister = new JPanel(centerLayout);
+		// paneRegister.setLayout(new GridLayout(1, 0));
+		// paneRegister.add(registerLectureIdLabel);
+		// paneRegister.add(registerLectureId);
+
+		// 登録用コンボボックス
+		// registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Lecture[] lectureArray = new Lecture[MyApp.lectures.size()];
+		lectureArray = MyApp.lectures.toArray(lectureArray);
+		JComboBox<Lecture> registerLectureComboBox = new JComboBox<>(lectureArray);
+
+		registerLectureComboBox.addActionListener(e -> {
+			JComboBox cb = (JComboBox) e.getSource();
+			Lecture selectedLecture = (Lecture) cb.getSelectedItem();
+			registerLectureId.setText(selectedLecture.getLectureID());
+		});
+		this.add(registerLectureComboBox);
+		this.pack();
+		this.setVisible(true);
+
 		JPanel paneRegister = new JPanel(centerLayout);
 		paneRegister.setLayout(new GridLayout(1, 0));
-		paneRegister.add(registerLectureIdLabel);
-		paneRegister.add(registerLectureId);
+		paneRegister.add(registerLectureComboBox);
+
+		// コンボボックス終わり
 
 		JPanel paneUnregister = new JPanel(centerLayout);
 		paneUnregister.setLayout(new GridLayout(1, 0));
@@ -75,7 +98,10 @@ public class DetailStudentInformation extends MyFrame {
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
+		// mainPane.add(paneRegister);
+		// comboboxを追加する
 		mainPane.add(paneRegister);
+
 		mainPane.add(paneUnregister);
 		mainPane.add(pane6);
 
