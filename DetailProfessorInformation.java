@@ -2,6 +2,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -15,10 +17,12 @@ public class DetailProfessorInformation extends MyFrame {
         JLabel idLabel = new JLabel("Professor ID: " + professor.getProfessorID());
         JLabel professorNameLabel = new JLabel("Professor Name: " + professor.getName());
 
+        JTextField professorName = new JTextField(professor.getName());
+
         // TODO add JTable which shows the list of lectures the professor is taking.
 
         JButton editButton = new JButton("edit");
-        ButtonAction buttonListener = new ButtonAction();
+        EditButtonAction buttonListener = new EditButtonAction(professor.getProfessorID(), professorName);
         editButton.addActionListener(buttonListener);
         JButton deleteButton = new JButton("delete");
         DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(professor);
@@ -33,6 +37,7 @@ public class DetailProfessorInformation extends MyFrame {
         JPanel pane2 = new JPanel(centerLayout);
         pane2.setLayout(new GridLayout(2, 0));
         pane2.add(professorNameLabel);
+        pane2.add(professorName);
         JPanel pane6 = new JPanel(centerLayout);
         pane6.setLayout(new GridLayout(2, 0));
         pane6.add(editButton);
@@ -47,8 +52,19 @@ public class DetailProfessorInformation extends MyFrame {
         this.setSize(500, 600);
     }
 
-    class ButtonAction implements ActionListener {
+    class EditButtonAction implements ActionListener {
+        private String id;
+        private JTextField professorName;
+
+        public EditButtonAction(String id, JTextField professorName) {
+            this.id = id;
+            this.professorName = professorName;
+        }
+
         public void actionPerformed(ActionEvent e) {
+            String name = professorName.getText();
+            DB.updateTeacher(id, name);
+            MyApp.initdata();
             dispose();
         }
     }

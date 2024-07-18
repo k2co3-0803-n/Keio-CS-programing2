@@ -73,7 +73,6 @@ public class DetailStudentInformation extends MyFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			String name = nameField.getText();
-			System.out.println(id + name + "で更新する！！！");
 			DB.updateStudent(id, name);
 			MyApp.initdata();
 			dispose();
