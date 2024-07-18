@@ -29,7 +29,7 @@ public class DetailLectureInformation extends MyFrame {
 		// JScrollPane scrollPane = new JScrollPane(table);
 
 		JButton editButton = new JButton("edit");
-		ButtonAction buttonListener = new ButtonAction();
+		EditButtonAction buttonListener = new EditButtonAction();
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
 		// pass lecture information to the action listener by using constructor
@@ -83,7 +83,7 @@ public class DetailLectureInformation extends MyFrame {
 		this.setSize(500, 600);
 	}
 
-	class ButtonAction implements ActionListener {
+	class EditButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			dispose();
 		}
@@ -101,7 +101,9 @@ public class DetailLectureInformation extends MyFrame {
 			int response = JOptionPane.showConfirmDialog(null, "本当にこの講義を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.YES_OPTION) {
-				deleteLecture();
+				DB.deleteFromLectures(Integer.parseInt(lecture.getLectureID()));
+				MyApp.initdata();
+				dispose();
 			}
 		}
 

@@ -62,37 +62,19 @@ public class DetailProfessorInformation extends MyFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-            int response = JOptionPane.showConfirmDialog(null, "本当にこの教授を削除しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, "本当にこの教授を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
-                deleteProfessor();
-            }
-        }
-
-        private void deleteProfessor() {
-            //Database.deleteLecture(lecture.getLectureID());
-
-            // String lectureID = lecture.getLectureID()
-            // int rowIndex = -1; // 初期値は見つからないことを示す-1
-            // for (int i = 0; i < tableModel.getRowCount(); i++) {
-            //  if (tableModel.getValueAt(i, idColumnIndex).equals(lectureID)) {
-            //      rowIndex = i;
-            //      break;
-            //  }
-            // }
-            // if (rowIndex == -1) {
-            //  return;
-            // }
-
-            // if (rowIndex != -1) {
-            //  tableModel.removeRow(rowIndex);
-            //  table.repaint();
+                DB.deleteFromTeacher(professor.getProfessorID());
+                MyApp.initdata();
                 dispose();
-            //}
+            }
         }
     }
 
     public static void createDetailProfessorInformation(Professor professor) {
-        DetailProfessorInformation detailProfessorInformation = new DetailProfessorInformation("Detail Professor Information", professor);
+        DetailProfessorInformation detailProfessorInformation = new DetailProfessorInformation(
+                "Detail Professor Information", professor);
         detailProfessorInformation.setVisible(true);
     }
 }
