@@ -10,7 +10,7 @@ import java.util.List;
 public class DB {
     private static Connection connection;
 
-    static {
+    static  {
         try {
             // load SQLite JDBC driver
             Class.forName("org.sqlite.JDBC");
