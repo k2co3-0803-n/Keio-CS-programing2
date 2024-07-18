@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,11 +17,20 @@ import java.awt.Color;
 public class DetailLectureInformation extends MyFrame {
 	public DetailLectureInformation(String frameName, Lecture lecture) {
 		super(frameName);
-		JLabel idLabel = new JLabel("Lecture ID: " + lecture.getLectureID());
-		JLabel lectureNameLabel = new JLabel("Lecture Name: " + lecture.getLectureName());
-		JLabel classRoomLabel = new JLabel("Lecture Room: " + lecture.getClassRoom());
-		JLabel dayAndTimeLabel = new JLabel("Lecture Time: " + lecture.getDayOfWeek() + lecture.getPeriod());
-		JLabel professorLabel = new JLabel("Lecture Professor: " + lecture.getProfessorInCharge());
+		JLabel idLabel = new JLabel("ID" + lecture.getLectureID());
+		JLabel lectureNameLabel = new JLabel("講義名");
+		JLabel classRoomLabel = new JLabel("教室");
+		JLabel dayOfWeekLabel = new JLabel("曜日");
+		JLabel periodLabel = new JLabel("時限");
+		JLabel professorLabel = new JLabel("担当教員");
+
+		// TextField
+		JTextField lectureName = new JTextField(lecture.getLectureName());
+		JTextField classRoom = new JTextField(lecture.getClassRoom());
+		JTextField dayOfWeek = new JTextField(lecture.getDayOfWeek());
+		JTextField period = new JTextField(lecture.getPeriod());
+		// 教員を変更する機構はまだ
+		JTextField professor = new JTextField(lecture.getProfessorInCharge());
 
 		// TODO add JTable which shows the list of students taking this class.
 		// StudentTableModel model = new
@@ -29,7 +39,8 @@ public class DetailLectureInformation extends MyFrame {
 		// JScrollPane scrollPane = new JScrollPane(table);
 
 		JButton editButton = new JButton("edit");
-		EditButtonAction buttonListener = new EditButtonAction();
+		EditButtonAction buttonListener = new EditButtonAction(lectureName, classRoom, dayOfWeek, period,
+				lecture.getLectureID());
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
 		// pass lecture information to the action listener by using constructor
@@ -45,15 +56,26 @@ public class DetailLectureInformation extends MyFrame {
 		JPanel pane2 = new JPanel(centerLayout);
 		pane2.setLayout(new GridLayout(2, 0));
 		pane2.add(lectureNameLabel);
+		pane2.add(lectureName);
 		JPanel pane3 = new JPanel(centerLayout);
 		pane3.setLayout(new GridLayout(2, 0));
 		pane3.add(classRoomLabel);
+		pane3.add(classRoom);
 		JPanel pane4 = new JPanel(centerLayout);
 		pane4.setLayout(new GridLayout(2, 0));
-		pane4.add(dayAndTimeLabel);
+		pane4.add(dayOfWeekLabel);
+		pane4.add(dayOfWeek);
+
+		JPanel panePeriod = new JPanel(centerLayout);
+		panePeriod.setLayout(new GridLayout(2, 0));
+		panePeriod.add(periodLabel);
+		panePeriod.add(period);
+
 		JPanel pane5 = new JPanel(centerLayout);
 		pane5.setLayout(new GridLayout(2, 0));
 		pane5.add(professorLabel);
+		pane5.add(professor);
+
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
 
@@ -74,6 +96,7 @@ public class DetailLectureInformation extends MyFrame {
 		mainPane.add(pane2);
 		mainPane.add(pane3);
 		mainPane.add(pane4);
+		mainPane.add(panePeriod);
 		mainPane.add(pane5);
 		// mainPane.add(scrollPane);
 		mainPane.add(pane7);
@@ -84,7 +107,28 @@ public class DetailLectureInformation extends MyFrame {
 	}
 
 	class EditButtonAction implements ActionListener {
+		private JTextField lectureName;
+		private JTextField classRoom;
+		private JTextField dayOfWeek;
+		private JTextField period;
+
+		private String lectureID;
+
+		public EditButtonAction(JTextField lectureName, JTextField classRoom, JTextField dayOfWeek, JTextField period,
+				String lectureID) {
+			this.lectureName = lectureName;
+			this.classRoom = classRoom;
+			this.dayOfWeek = dayOfWeek;
+			this.period = period;
+			this.lectureID = lectureID;
+		}
+
 		public void actionPerformed(ActionEvent e) {
+			DB.updateLecture(Integer.parseInt(lectureID), lectureName.getText(), classRoom.getText(),
+					dayOfWeek.getText(),
+					period.getText());
+			// 先生の変更はここに、別でDB.insertIntoTeachingLecturesを追記するのが良いと思う。ドロップダウンで、idを代入させるようにする
+			MyApp.initdata();
 			dispose();
 		}
 	}
