@@ -58,10 +58,6 @@ public class RegisterFormLecture extends MyFrame {
 
 		JPanel pane1 = new JPanel();
 		pane1.add(titleLabel);
-		// JPanel pane2 = new JPanel();
-		// pane2.setLayout(new GridLayout(2, 0));
-		// pane2.add(idLabel);
-		// pane2.add(id);
 		JPanel pane3 = new JPanel();
 		pane3.setLayout(new GridLayout(2, 0));
 		pane3.add(lectureNameLabel);
@@ -71,11 +67,6 @@ public class RegisterFormLecture extends MyFrame {
 		pane4.setLayout(new GridLayout(2, 0));
 		pane4.add(classRoomLabel);
 		pane4.add(classRoom);
-
-		// JPanel pane5 = new JPanel();
-		// pane5.setLayout(new GridLayout(2, 0));
-		// pane5.add(dayOfWeekLabel);
-		// pane5.add(dayOfWeek);
 
 		JPanel pane6 = new JPanel();
 		pane6.setLayout(new GridLayout(2, 0));
@@ -100,11 +91,6 @@ public class RegisterFormLecture extends MyFrame {
 		paneDayOfWeek.setLayout(new GridLayout(1, 0));
 		paneDayOfWeek.add(dayOfWeekLabel);
 		paneDayOfWeek.add(dayOfWeekComboBox);
-
-		// JPanel pane7 = new JPanel();
-		// pane7.setLayout(new GridLayout(2, 0));
-		// pane7.add(professorLabel);
-		// pane7.add(professor);
 
 		JPanel mainPane = new JPanel();
 		mainPane.setLayout(new GridLayout(0, 1));

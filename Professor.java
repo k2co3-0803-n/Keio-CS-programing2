@@ -4,7 +4,6 @@ public class Professor {
 	String professorID;
 	String professorName;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
 	public Professor(String professorID, String professorName) {
 		this.professorID = professorID;

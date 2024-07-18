@@ -5,7 +5,6 @@ public class Student {
 	String studentID;
 	String studentName;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
 	// 
 	public Student(String studentID, String studentName) {

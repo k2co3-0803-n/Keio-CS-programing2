@@ -5,11 +5,10 @@ public class Lecture {
 	private String lectureID;
 	private String lectureName;
 	private String classRoom;
-	private String dayOfWeek; // 曜日
-	private String period; // 時限
+	private String dayOfWeek; 
+	private String period; 
 	private String professorInCharge;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
 	public Lecture(String lectureID, String lectureName, String classRoom, String dayOfWeek,String period, String professorInCharge) {
 		this.lectureID = lectureID;

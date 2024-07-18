@@ -32,21 +32,13 @@ public class DetailLectureInformation extends MyFrame {
 		JTextField classRoom = new JTextField(lecture.getClassRoom());
 		JTextField dayOfWeek = new JTextField(lecture.getDayOfWeek());
 		JTextField period = new JTextField(lecture.getPeriod());
-		// 教員を変更する機構はまだ
 		JTextField professorID = new JTextField(lecture.getProfessorInCharge());
-
-		// TODO add JTable which shows the list of students taking this class.
-		// StudentTableModel model = new
-		// StudentTableModel(lecture.getEnrolledStudents());
-		// JTable table = new JTable(model);
-		// JScrollPane scrollPane = new JScrollPane(table);
 
 		JButton editButton = new JButton("edit");
 		EditButtonAction buttonListener = new EditButtonAction(lectureName, classRoom, dayOfWeek, period,
 				lecture.getLectureID(), professorID);
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
-		// pass lecture information to the action listener by using constructor
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(lecture);
 		deleteButtton.addActionListener(deleteButtonActionListener);
 
@@ -110,11 +102,6 @@ public class DetailLectureInformation extends MyFrame {
 		panePeriod.add(periodLabel);
 		panePeriod.add(period);
 		// 教員登録用combobox終わり
-
-		// JPanel pane5 = new JPanel(centerLayout);
-		// pane5.setLayout(new GridLayout(2, 0));
-		// pane5.add(professorLabel);
-		// pane5.add(professorID);
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -201,62 +188,6 @@ public class DetailLectureInformation extends MyFrame {
 				MyApp.initdata();
 				dispose();
 			}
-		}
-
-		// static class StudentTableModel extends AbstractTableModel {
-		// private List<Student> students;
-		// private String[] columnNames = {"ID", "Name"};
-
-		// // Constructor
-		// public StudentTableModel(ArrayList<Student> students) {
-		// this.students = students;
-		// }
-
-		// public int getRowCount() {
-		// return students.size();
-		// }
-
-		// public int getColumnCount() {
-		// return columnNames.length;
-		// }
-
-		// public Object getValueAt(int rowIndex, int columnIndex) {
-		// Student student = students.get(rowIndex);
-		// switch (columnIndex) {
-		// case 0:
-		// return student.getStudentID();
-		// case 1:
-		// return student.getStudentName();
-		// default:
-		// return "Details";
-		// }
-		// }
-
-		// public String getColumnName(int column) {
-		// return columnNames[column];
-		// }
-		// }
-
-		private void deleteLecture() {
-			// Database.deleteLecture(lecture.getLectureID());
-
-			// String lectureID = lecture.getLectureID()
-			// int rowIndex = -1; // 初期値は見つからないことを示す-1
-			// for (int i = 0; i < tableModel.getRowCount(); i++) {
-			// if (tableModel.getValueAt(i, idColumnIndex).equals(lectureID)) {
-			// rowIndex = i;
-			// break;
-			// }
-			// }
-			// if (rowIndex == -1) {
-			// return;
-			// }
-
-			// if (rowIndex != -1) {
-			// tableModel.removeRow(rowIndex);
-			// table.repaint();
-			dispose();
-			// }
 		}
 	}
 
