@@ -35,8 +35,8 @@ public class LecturePanel extends JPanel {
 
         // Create a panel
         LecturePanel lecturePanel = new LecturePanel();
-        lecturePanel.add(reloadButton, BorderLayout.EAST);
         lecturePanel.add(buttonRegister, BorderLayout.NORTH);
+        lecturePanel.add(reloadButton, BorderLayout.EAST);
         lecturePanel.add(scrollPane, BorderLayout.CENTER);
 
         return lecturePanel;

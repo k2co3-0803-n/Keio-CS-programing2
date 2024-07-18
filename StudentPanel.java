@@ -31,8 +31,8 @@ public class StudentPanel extends JPanel {
         reloadButton.addActionListener(reloadButtonActionLister);
 
         StudentPanel studentPanel = new StudentPanel();
-        studentPanel.add(reloadButton, BorderLayout.EAST);
         studentPanel.add(buttonRegister, BorderLayout.NORTH);
+        studentPanel.add(reloadButton, BorderLayout.EAST);
         studentPanel.add(scrollPane, BorderLayout.CENTER);
 
         return studentPanel;
