@@ -9,11 +9,9 @@ public class LecturePanel extends JPanel {
     static JTable table;
     public static LectureTableModel tableModel;
 
-    // class method
-    // Later, this method will be called from Home.java
+    // Class method
+    // This method will be called from Home.java later
     public static LecturePanel createLecturePanel() {
-        // Create a list of lectures. This ArrayList has the actuak data of lectures.
-
         tableModel = new LectureTableModel(MyApp.lectures);
         table = new JTable(tableModel);
 
@@ -77,7 +75,7 @@ public class LecturePanel extends JPanel {
 
         public void setLectures(ArrayList<Lecture> lectures) {
             this.lectures = lectures;
-            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
+            fireTableDataChanged(); // Notify the model change and redraw the table
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -103,8 +101,7 @@ public class LecturePanel extends JPanel {
         }
 
         public boolean isCellEditable(int row, int col) {
-            return col == 5; // Only the last column is editable. But this is for the UI of pressing the
-                             // button.
+            return col == 5;
         }
     }
 
@@ -148,10 +145,8 @@ public class LecturePanel extends JPanel {
 
         public Object getCellEditorValue() {
             if (isPushed) {
-                // show the detail information of the lecture
+                // Show the detail information of the lecture
                 int row = table.getSelectedRow();
-                // TODO probably this is not a good way to get the data of the selected row.
-                // This data cannot contain the students who take this selected class.
                 Lecture lecture = ((LectureTableModel) table.getModel()).lectures.get(row);
                 DetailLectureInformation.createDetailLectureInformation(lecture);
             }

@@ -69,7 +69,7 @@ public class ProfessorPanel extends JPanel {
 
         public void setProfessors(ArrayList<Professor> professors) {
             this.professors = professors;
-            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
+            fireTableDataChanged(); // Notify model change and redraw
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -89,7 +89,7 @@ public class ProfessorPanel extends JPanel {
         }
 
         public boolean isCellEditable(int row, int col) {
-            return col == 2; // Only the last column is editable
+            return col == 2;
         }
     }
 

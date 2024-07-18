@@ -40,7 +40,6 @@ public class StudentPanel extends JPanel {
 
     public static class ReloadButtonAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Update the table
             tableModel.setLectures(MyApp.students);
         }
     }
@@ -69,7 +68,8 @@ public class StudentPanel extends JPanel {
 
         public void setLectures(ArrayList<Student> students) {
             this.students = students;
-            fireTableDataChanged(); // モデルの変更を通知してテーブルを再描画
+            // flush the table
+            fireTableDataChanged();
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
@@ -89,7 +89,7 @@ public class StudentPanel extends JPanel {
         }
 
         public boolean isCellEditable(int row, int col) {
-            return col == 2; // Only the last column is editable
+            return col == 2;
         }
     }
 

@@ -15,7 +15,6 @@ public class Home extends MyFrame {
 	// Constructor
 	public Home(String title) {
 		super(title); // Constructor of super class
-		// test: 生徒一覧を取得をテスト
 
 		JLabel label1 = new JLabel("Lecture Manegement System");
 		JLabel label2 = new JLabel("Rakuta");
@@ -77,7 +76,7 @@ public class Home extends MyFrame {
 	// Here, create home screen as an entity
 	// Later, call this class method in main method of MyApp class
 	public static void createHome() {
-		Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
+		Home home = new Home("Lecture Management System"); // This panel is a super panel among all panel in the Home screen.
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		home.setVisible(true);
 	}

@@ -19,8 +19,6 @@ public class DetailProfessorInformation extends MyFrame {
 
         JTextField professorName = new JTextField(professor.getName());
 
-        // TODO add JTable which shows the list of lectures the professor is taking.
-
         JButton editButton = new JButton("edit");
         EditButtonAction buttonListener = new EditButtonAction(professor.getProfessorID(), professorName);
         editButton.addActionListener(buttonListener);
@@ -63,25 +61,26 @@ public class DetailProfessorInformation extends MyFrame {
         public void actionPerformed(ActionEvent e) {
             String name = professorName.getText();
             DB.updateTeacher(id, name);
-            MyApp.initdata();
+            MyApp.initData();
             dispose();
         }
     }
 
     class DeleteButtonAction implements ActionListener {
-        private Professor professor; // 講義情報を保持するフィールド
+        private Professor professor; // Field to hold lecture information
 
-        // コンストラクタで講義情報を受け取る
+        // Constructor to receive lecture information
         public DeleteButtonAction(Professor professor) {
             this.professor = professor;
         }
 
         public void actionPerformed(ActionEvent e) {
-            int response = JOptionPane.showConfirmDialog(null, "本当にこの教授を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this professor?",
+                    "Confirmation", JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 DB.deleteFromTeacher(professor.getProfessorID());
-                MyApp.initdata();
+                MyApp.initData();
                 dispose();
             }
         }

@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-// Here, define UI of Register form of new students
 public class RegisterFormStudent extends MyFrame {
 	JTextField title;
 	JTextField studentName;
@@ -10,10 +9,8 @@ public class RegisterFormStudent extends MyFrame {
 
 	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("insert student into DB");
 			DB.insertIntoStudents(student_id.getText(), studentName.getText());
-			MyApp.initdata();
-			// ここでパネルを再描画したい
+			MyApp.initData();
 			dispose();
 		}
 	}
@@ -21,14 +18,14 @@ public class RegisterFormStudent extends MyFrame {
 	// Constructor
 	public RegisterFormStudent(String frameName) {
 		super(frameName);
-		JLabel titleLabel = new JLabel("新しい生徒を追加");
-		JLabel studentNameLabel = new JLabel("氏名");
-		JLabel student_idLabel = new JLabel("学籍番号");
+		JLabel titleLabel = new JLabel("Register a new student");
+		JLabel studentNameLabel = new JLabel("Name");
+		JLabel student_idLabel = new JLabel("Student ID");
 
 		studentName = new JTextField();
 		student_id = new JTextField();
 
-		JButton addButton = new JButton("追加");
+		JButton addButton = new JButton("Register");
 		ButtonAction buttonListener = new ButtonAction();
 		addButton.addActionListener(buttonListener);
 
@@ -55,7 +52,7 @@ public class RegisterFormStudent extends MyFrame {
 	}
 
 	public static void createRegisterFormStudent() {
-		RegisterFormStudent registerFormLecture = new RegisterFormStudent("新しい生徒を追加");
+		RegisterFormStudent registerFormLecture = new RegisterFormStudent("Register a new student");
 		registerFormLecture.setVisible(true);
 	}
 }

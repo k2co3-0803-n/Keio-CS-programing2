@@ -19,7 +19,7 @@ public class RegisterFormProfessor extends MyFrame {
 
         public void actionPerformed(ActionEvent e) {
             DB.insertIntoTeacher(professor_id.getText(), professorName.getText());
-            MyApp.initdata();
+            MyApp.initData();
             dispose();
         }
     }
@@ -27,14 +27,14 @@ public class RegisterFormProfessor extends MyFrame {
     // Constructor
     public RegisterFormProfessor(String frameName) {
         super(frameName);
-        JLabel titleLabel = new JLabel("新しい教授を追加");
-        JLabel professorNameLabel = new JLabel("氏名");
-        JLabel professor_idLabel = new JLabel("教授番号");
+        JLabel titleLabel = new JLabel("add a new professor");
+        JLabel professorNameLabel = new JLabel("name");
+        JLabel professor_idLabel = new JLabel("Professor ID");
 
         professorName = new JTextField();
         professor_id = new JTextField();
 
-        JButton addButton = new JButton("追加");
+        JButton addButton = new JButton("add");
         ButtonAction buttonListener = new ButtonAction(professor_id, professorName);
         addButton.addActionListener(buttonListener);
 
@@ -61,7 +61,7 @@ public class RegisterFormProfessor extends MyFrame {
     }
 
     public static void createRegisterFormProfessor() {
-        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("新しい教授を追加");
+        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("add a new professor");
         registerFormProfessor.setVisible(true);
     }
 }

@@ -19,17 +19,13 @@ public class DetailStudentInformation extends MyFrame {
 		JLabel studentNameLabel = new JLabel("Student Name: ");
 		JTextField studentName = new JTextField(student.getName());
 
-		// 履修登録用のテキストフィールド.あとでドロップダウンにするかも
-		JLabel registerLectureIdLabel = new JLabel("履修登録する講義: ");
+		JLabel registerLectureIdLabel = new JLabel("Courses to register for: ");
 		JTextField registerLectureId = new JTextField();
 
-		// 履修解除用のテキストフィールド.あとでドロップダウンにするかも
-		JLabel unregisterLectureIdLabel = new JLabel("履修解除する講義: ");
+		JLabel unregisterLectureIdLabel = new JLabel("Courses to drop: ");
 		JTextField unregisterLectureId = new JTextField();
 
 		String[][] taking_lectures = DB.selectLecturesByStudent(student.getStudentID());
-
-		// TODO add JTable which shows the list of lectures the student is taking.
 
 		JButton editButton = new JButton("edit");
 		EditButtonAction editButtonListener = new EditButtonAction(student.getStudentID(), studentName,
@@ -55,12 +51,11 @@ public class DetailStudentInformation extends MyFrame {
 		pane3.add(takingLecturesLabel);
 		pane3.setLayout(new GridLayout(0, 1));
 		for (String[] lecture : taking_lectures) {
-			JLabel lectureLabel = new JLabel("ID: " + lecture[0] + " 講義名: " + lecture[1]);
+			JLabel lectureLabel = new JLabel("ID: " + lecture[0] + " Lecture Name: " + lecture[1]);
 			pane3.add(lectureLabel);
 		}
 
-		// 登録用コンボボックス
-		// registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// register lecture combobox
 		Lecture[] lectureArray = new Lecture[MyApp.lectures.size()];
 		lectureArray = MyApp.lectures.toArray(lectureArray);
 		JComboBox<Lecture> registerLectureComboBox = new JComboBox<>(lectureArray);
@@ -80,9 +75,9 @@ public class DetailStudentInformation extends MyFrame {
 		paneRegister.add(registerLectureIdLabel);
 		paneRegister.add(registerLectureComboBox);
 
-		// コンボボックス終わり
-		
-		// 履修解除用コンボボックス
+		// end of register lecture combobox
+
+		// unregister lecture combobox
 		class SubLecture {
 			private String lectureID;
 			private String lectureName;
@@ -98,7 +93,7 @@ public class DetailStudentInformation extends MyFrame {
 			}
 		}
 
-		// 履修中の授業リストを作成
+		// registered lecture combobox
 		String[][] registeredLectures = DB.selectLecturesByStudent(student.getStudentID());
 		SubLecture[] registeredLectureFormatArray = new SubLecture[registeredLectures.length];
 		for (int i = 0; i < registeredLectures.length; i++) {
@@ -121,7 +116,7 @@ public class DetailStudentInformation extends MyFrame {
 		paneUnregister.add(unregisterLectureIdLabel);
 		paneUnregister.add(unregisterLectureComboBox);
 
-		// 履修解除用コンボボックス終わり
+		// end of register lecture combobox
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -132,7 +127,6 @@ public class DetailStudentInformation extends MyFrame {
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
-		// comboboxを追加する
 		mainPane.add(paneRegister);
 		mainPane.add(paneUnregister);
 		mainPane.add(pane6);
@@ -164,25 +158,25 @@ public class DetailStudentInformation extends MyFrame {
 			if (!unregisterLectureId.getText().equals("")) {
 				DB.deleteFromTakingLectures(id, Integer.parseInt(unregisterLectureId.getText()));
 			}
-			MyApp.initdata();
+			MyApp.initData();
 			dispose();
 		}
 	}
 
 	class DeleteButtonAction implements ActionListener {
-		private Student student; // 講義情報を保持するフィールド
+		private Student student;
 
-		// コンストラクタで講義情報を受け取る
 		public DeleteButtonAction(Student student) {
 			this.student = student;
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int response = JOptionPane.showConfirmDialog(null, "本当にこの生徒を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this student?",
+					"Confirmation", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.YES_OPTION) {
 				DB.deleteFromStudents(student.getStudentID());
-				MyApp.initdata();
+				MyApp.initData();
 				dispose();
 			}
 		}

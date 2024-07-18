@@ -6,10 +6,10 @@ public class MyApp {
 	static ArrayList<Student> students = new ArrayList<Student>();
 	static ArrayList<Lecture> lectures = new ArrayList<Lecture>();
 	static ArrayList<Professor> professors = new ArrayList<Professor>();
-	
+
 	static DayOfWeek[] dayOfWeeks = new DayOfWeek[7];
 
-	// 生徒の初期化
+	// Initialize students
 	static void initStudents() {
 		students.clear();
 		String[][] studentsRawData = DB.selectAllFromStudents();
@@ -21,7 +21,7 @@ public class MyApp {
 		}
 	}
 
-	// 教員の初期化
+	// Initialize teachers
 	static void initTeachers() {
 		professors.clear();
 		String[][] teachersRawData = DB.selectAllFromTeachers();
@@ -33,8 +33,8 @@ public class MyApp {
 		}
 	}
 
-	// 講義の初期化
-	// selectAllFromLecturesView()を使う
+	// Initialize lectures
+	// Use selectAllFromLecturesView()
 	static void initLectures() {
 		lectures.clear();
 		String[][] lecturesRawData = DB.selectAllFromLecturesView();
@@ -58,8 +58,8 @@ public class MyApp {
 			lectures.add(lecture);
 		}
 	}
-	
-	// 曜日の初期化
+
+	// Initialize days of the week
 	static void initDayOfWeeks() {
 		String[][] dayOfWeekRawData = DB.selectAllFromDayOfWeek();
 		for (String[] dayOfWeekRaw : dayOfWeekRawData) {
@@ -69,19 +69,18 @@ public class MyApp {
 			dayOfWeeks[Integer.parseInt(dayOfWeekID) - 1] = dayOfWeek;
 		}
 	}
-	
 
-	static void initdata() {
+	static void initData() {
 		MyApp.initStudents();
 		MyApp.initTeachers();
 		MyApp.initLectures();
 	}
 
-	// clase method
+	// Main method
 	public static void main(String[] args) {
 		// initialize
 		initDayOfWeeks();
-		MyApp.initdata();
+		MyApp.initData();
 		Home.createHome();
 	}
 }

@@ -29,7 +29,7 @@ public class RegisterFormLecture extends MyFrame {
 		public void actionPerformed(ActionEvent e) {
 			DB.insertIntoLectures(name.getText(), classRoom.getText(), DayOfWeek.convertIntToYoubi(dayOfWeek.getText()),
 					period.getText());
-			MyApp.initdata();
+			MyApp.initData();
 			dispose();
 		}
 	}
@@ -37,22 +37,19 @@ public class RegisterFormLecture extends MyFrame {
 	// Constructor
 	public RegisterFormLecture(String frameName) {
 		super(frameName);
-		JLabel titleLabel = new JLabel("新しい講義を追加");
-		// JLabel idLabel = new JLabel("講義ID");
-		JLabel lectureNameLabel = new JLabel("講義名");
-		JLabel classRoomLabel = new JLabel("講義教室");
-		JLabel dayOfWeekLabel = new JLabel("講義曜日");
-		JLabel periodLabel = new JLabel("講義時限");
-		// JLabel professorLabel = new JLabel("担当教員(IDか無記入)");
+		JLabel titleLabel = new JLabel("Register a new lecture");
+		JLabel lectureNameLabel = new JLabel("Lecture Name");
+		JLabel classRoomLabel = new JLabel("Class Room");
+		JLabel dayOfWeekLabel = new JLabel("Day of Week");
+		JLabel periodLabel = new JLabel("Period");
 
 		id = new JTextField();
 		lectureName = new JTextField();
 		classRoom = new JTextField();
 		dayOfWeek = new JTextField();
 		period = new JTextField();
-		// professor = new JTextField();
 
-		JButton addButton = new JButton("追加");
+		JButton addButton = new JButton("Register");
 		ButtonAction buttonListener = new ButtonAction(lectureName, classRoom, dayOfWeek, period);
 		addButton.addActionListener(buttonListener);
 
@@ -73,7 +70,7 @@ public class RegisterFormLecture extends MyFrame {
 		pane6.add(periodLabel);
 		pane6.add(period);
 
-		// 曜日登録用コンボボックス
+		// JComboBox for Day of Week
 		JComboBox<DayOfWeek> dayOfWeekComboBox = new JComboBox<DayOfWeek>(MyApp.dayOfWeeks);
 		dayOfWeekComboBox.setSelectedIndex(-1);
 		dayOfWeekComboBox.addActionListener(new ActionListener() {
@@ -86,7 +83,7 @@ public class RegisterFormLecture extends MyFrame {
 		this.add(dayOfWeekComboBox);
 		this.pack();
 		this.setVisible(true);
-		
+
 		JPanel paneDayOfWeek = new JPanel();
 		paneDayOfWeek.setLayout(new GridLayout(1, 0));
 		paneDayOfWeek.add(dayOfWeekLabel);
@@ -95,12 +92,10 @@ public class RegisterFormLecture extends MyFrame {
 		JPanel mainPane = new JPanel();
 		mainPane.setLayout(new GridLayout(0, 1));
 		mainPane.add(pane1);
-		// mainPane.add(pane2);
 		mainPane.add(pane3);
 		mainPane.add(pane4);
 		mainPane.add(paneDayOfWeek);
 		mainPane.add(pane6);
-		// mainPane.add(pane7);
 		mainPane.add(addButton);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
@@ -108,7 +103,7 @@ public class RegisterFormLecture extends MyFrame {
 	}
 
 	public static void createRegisterFormLecture() {
-		RegisterFormLecture registerFormLecture = new RegisterFormLecture("新しい講義を追加");
+		RegisterFormLecture registerFormLecture = new RegisterFormLecture("Register a new lecture");
 		registerFormLecture.setVisible(true);
 	}
 }

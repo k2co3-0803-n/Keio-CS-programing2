@@ -1,19 +1,7 @@
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.List;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 
 // git stash test
 
@@ -21,11 +9,11 @@ public class DetailLectureInformation extends MyFrame {
 	public DetailLectureInformation(String frameName, Lecture lecture) {
 		super(frameName);
 		JLabel idLabel = new JLabel("ID" + lecture.getLectureID());
-		JLabel lectureNameLabel = new JLabel("講義名");
-		JLabel classRoomLabel = new JLabel("教室");
-		JLabel dayOfWeekLabel = new JLabel("曜日");
-		JLabel periodLabel = new JLabel("時限");
-		JLabel professorLabel = new JLabel("担当教員ID"); // 一旦IDで、あとでドロップダウン
+		JLabel lectureNameLabel = new JLabel("Lecture Name");
+		JLabel classRoomLabel = new JLabel("Classroom");
+		JLabel dayOfWeekLabel = new JLabel("Day of Week");
+		JLabel periodLabel = new JLabel("Period");
+		JLabel professorLabel = new JLabel("Professor ID");
 
 		// TextField
 		JTextField lectureName = new JTextField(lecture.getLectureName());
@@ -42,8 +30,8 @@ public class DetailLectureInformation extends MyFrame {
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(lecture);
 		deleteButtton.addActionListener(deleteButtonActionListener);
 
-		// dayofweekのcombobox
-		// 曜日登録用コンボボックス
+		// dayofweek combobox
+		// Combo box for registering day of week
 		JComboBox<DayOfWeek> dayOfWeekComboBox = new JComboBox<DayOfWeek>(MyApp.dayOfWeeks);
 		dayOfWeekComboBox.setSelectedIndex(-1);
 		dayOfWeekComboBox.addActionListener(new ActionListener() {
@@ -61,11 +49,11 @@ public class DetailLectureInformation extends MyFrame {
 		paneDayOfWeek.setLayout(new GridLayout(1, 0));
 		paneDayOfWeek.add(dayOfWeekLabel);
 		paneDayOfWeek.add(dayOfWeekComboBox);
-		// dayofweekのcombobox終わり
+		// end of dayofweek combobox
 		//
 
-		// professorのCombobox
-		// 教員登録用コンボボックス
+		// professor Combobox
+		// Combo box for registering professor
 		Professor[] professorArray = new Professor[MyApp.professors.size()];
 		professorArray = MyApp.professors.toArray(professorArray);
 		JComboBox<Professor> professorComboBox = new JComboBox<>(professorArray);
@@ -101,7 +89,7 @@ public class DetailLectureInformation extends MyFrame {
 		panePeriod.setLayout(new GridLayout(2, 0));
 		panePeriod.add(periodLabel);
 		panePeriod.add(period);
-		// 教員登録用combobox終わり
+		// end of professor registration combobox
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -110,10 +98,10 @@ public class DetailLectureInformation extends MyFrame {
 		String[][] taking_students = DB.selectStudentsByLecture(lecture.getLectureID());
 		JPanel pane7 = new JPanel(centerLayout);
 		pane7.setLayout(new GridLayout(0, 1));
-		JLabel studentLabelTitle = new JLabel("履修学生");
+		JLabel studentLabelTitle = new JLabel("Enrolled Students");
 		pane7.add(studentLabelTitle);
 		for (String[] student : taking_students) {
-			JLabel studentLabel = new JLabel("ID: " + student[2] + " 氏名: " + student[3]);
+			JLabel studentLabel = new JLabel("ID: " + student[2] + " Name: " + student[3]);
 			pane7.add(studentLabel);
 		}
 
@@ -159,7 +147,8 @@ public class DetailLectureInformation extends MyFrame {
 			DB.updateLecture(Integer.parseInt(lectureID), lectureName.getText(), classRoom.getText(),
 					DayOfWeek.convertIntToYoubi(dayOfWeek.getText()),
 					period.getText());
-			// 先生の変更はここに、別でDB.insertIntoTeachingLecturesを追記するのが良いと思う。ドロップダウンで、idを代入させるようにする
+			// Changes to the professor are here, it's good to add
+			// DB.insertIntoTeachingLectures separately. Use the dropdown to assign the id
 			if (!professorID.getText().equals("")) {
 				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
 				DB.insertIntoTeachingLectures(professorID.getText(), Integer.parseInt(lectureID));
@@ -167,25 +156,26 @@ public class DetailLectureInformation extends MyFrame {
 			if (professorID.getText().equals("")) {
 				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
 			}
-			MyApp.initdata();
+			MyApp.initData();
 			dispose();
 		}
 	}
 
 	class DeleteButtonAction implements ActionListener {
-		private Lecture lecture; // 講義情報を保持するフィールド
+		private Lecture lecture; // Field to hold lecture information
 
-		// コンストラクタで講義情報を受け取る
+		// Constructor to receive lecture information
 		public DeleteButtonAction(Lecture lecture) {
 			this.lecture = lecture;
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int response = JOptionPane.showConfirmDialog(null, "本当にこの講義を削除しますか？", "確認", JOptionPane.YES_NO_OPTION,
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this lecture?",
+					"Confirmation", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.YES_OPTION) {
 				DB.deleteFromLectures(Integer.parseInt(lecture.getLectureID()));
-				MyApp.initdata();
+				MyApp.initData();
 				dispose();
 			}
 		}
