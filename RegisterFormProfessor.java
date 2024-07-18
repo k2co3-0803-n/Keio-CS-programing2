@@ -1,14 +1,25 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 // Here, define UI of Register form of new professors
-public class RegisterFormProfessor extends MyFrame{
+public class RegisterFormProfessor extends MyFrame {
     JTextField title;
     JTextField professorName;
     JTextField professor_id;
 
     class ButtonAction implements ActionListener {
+        private JTextField professor_id;
+        private JTextField professorName;
+
+        public ButtonAction(JTextField professor_id, JTextField professorName) {
+            this.professor_id = professor_id;
+            this.professorName = professorName;
+        }
+
         public void actionPerformed(ActionEvent e) {
+            DB.insertIntoTeacher(professor_id.getText(), professorName.getText());
+            MyApp.initData();
             dispose();
         }
     }
@@ -16,15 +27,15 @@ public class RegisterFormProfessor extends MyFrame{
     // Constructor
     public RegisterFormProfessor(String frameName) {
         super(frameName);
-        JLabel titleLabel = new JLabel("新しい教授を追加");
-        JLabel professorNameLabel = new JLabel("氏名");
-        JLabel professor_idLabel = new JLabel("教授番号");
+        JLabel titleLabel = new JLabel("add a new professor");
+        JLabel professorNameLabel = new JLabel("name");
+        JLabel professor_idLabel = new JLabel("Professor ID");
 
         professorName = new JTextField();
         professor_id = new JTextField();
 
-        JButton addButton = new JButton("追加");
-        ButtonAction buttonListener = new ButtonAction();
+        JButton addButton = new JButton("add");
+        ButtonAction buttonListener = new ButtonAction(professor_id, professorName);
         addButton.addActionListener(buttonListener);
 
         JPanel pane1 = new JPanel();
@@ -50,8 +61,7 @@ public class RegisterFormProfessor extends MyFrame{
     }
 
     public static void createRegisterFormProfessor() {
-        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("新しい教授を追加");
+        RegisterFormProfessor registerFormProfessor = new RegisterFormProfessor("add a new professor");
         registerFormProfessor.setVisible(true);
     }
 }
-

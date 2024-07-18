@@ -1,65 +1,110 @@
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
+
+// git stash test
 
 public class DetailLectureInformation extends MyFrame {
 	public DetailLectureInformation(String frameName, Lecture lecture) {
 		super(frameName);
-		JLabel idLabel = new JLabel("Lecture ID: " + lecture.getLectureID());
-		JLabel lectureNameLabel = new JLabel("Lecture Name: " + lecture.getLectureName());
-		JLabel classRoomLabel = new JLabel("Lecture Room: " + lecture.getClassRoom());
-		JLabel dayAndTimeLabel = new JLabel("Lecture Time: " + lecture.getLectureDayAndTime());
-		JLabel professorLabel = new JLabel("Lecture Professor: " + lecture.getProfessorInCharge());
+		JLabel idLabel = new JLabel("ID" + lecture.getLectureID());
+		JLabel lectureNameLabel = new JLabel("Lecture Name");
+		JLabel classRoomLabel = new JLabel("Classroom");
+		JLabel dayOfWeekLabel = new JLabel("Day of Week");
+		JLabel periodLabel = new JLabel("Period");
+		JLabel professorLabel = new JLabel("Professor ID");
 
-		// TODO add JTable which shows the list of students taking this class.
-		ArrayList<Student> students = (ArrayList<Student>)lecture.getEnrolledStudents();
-		StudentTableModel model = new StudentTableModel(students);
-		
-		JTable table = new JTable(model);
-		JScrollPane scrollPane = new JScrollPane(table);
+		// TextField
+		JTextField lectureName = new JTextField(lecture.getLectureName());
+		JTextField classRoom = new JTextField(lecture.getClassRoom());
+		JTextField dayOfWeek = new JTextField(lecture.getDayOfWeek());
+		JTextField period = new JTextField(lecture.getPeriod());
+		JTextField professorID = new JTextField(lecture.getProfessorInCharge());
 
 		JButton editButton = new JButton("edit");
-		ButtonAction buttonListener = new ButtonAction();
+		EditButtonAction buttonListener = new EditButtonAction(lectureName, classRoom, dayOfWeek, period,
+				lecture.getLectureID(), professorID);
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
-		// pass lecture information to the action listener by using constructor
 		DeleteButtonAction deleteButtonActionListener = new DeleteButtonAction(lecture);
 		deleteButtton.addActionListener(deleteButtonActionListener);
 
+		// dayofweek combobox
+		// Combo box for registering day of week
+		JComboBox<DayOfWeek> dayOfWeekComboBox = new JComboBox<DayOfWeek>(MyApp.dayOfWeeks);
+		dayOfWeekComboBox.setSelectedIndex(-1);
+		dayOfWeekComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox) e.getSource();
+				DayOfWeek selectedDayOfWeek = (DayOfWeek) cb.getSelectedItem();
+				dayOfWeek.setText(selectedDayOfWeek.toString());
+			}
+		});
+		this.add(dayOfWeekComboBox);
+		this.pack();
+		this.setVisible(true);
+
+		JPanel paneDayOfWeek = new JPanel();
+		paneDayOfWeek.setLayout(new GridLayout(1, 0));
+		paneDayOfWeek.add(dayOfWeekLabel);
+		paneDayOfWeek.add(dayOfWeekComboBox);
+		// end of dayofweek combobox
+		//
+
+		// professor Combobox
+		// Combo box for registering professor
+		Professor[] professorArray = new Professor[MyApp.professors.size()];
+		professorArray = MyApp.professors.toArray(professorArray);
+		JComboBox<Professor> professorComboBox = new JComboBox<>(professorArray);
+		professorComboBox.setSelectedIndex(-1);
+		professorComboBox.addActionListener(e -> {
+			JComboBox cb = (JComboBox) e.getSource();
+			Professor selectedProfessor = (Professor) cb.getSelectedItem();
+			professorID.setText(selectedProfessor.getProfessorID());
+		});
+		this.add(professorComboBox);
+		this.pack();
+		this.setVisible(true);
+		JPanel paneProfessor = new JPanel();
+		paneProfessor.setLayout(new GridLayout(1, 0));
+		paneProfessor.add(professorLabel);
+		paneProfessor.add(professorComboBox);
+
 		FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
-
-
 
 		JPanel pane1 = new JPanel(centerLayout);
 		pane1.setLayout(new GridLayout(2, 0));
 		pane1.add(idLabel);
-		pane1.setBackground(Color.red);
 		JPanel pane2 = new JPanel(centerLayout);
 		pane2.setLayout(new GridLayout(2, 0));
 		pane2.add(lectureNameLabel);
+		pane2.add(lectureName);
 		JPanel pane3 = new JPanel(centerLayout);
 		pane3.setLayout(new GridLayout(2, 0));
 		pane3.add(classRoomLabel);
-		JPanel pane4 = new JPanel(centerLayout);
-		pane4.setLayout(new GridLayout(2, 0));
-		pane4.add(dayAndTimeLabel);
-		JPanel pane5 = new JPanel(centerLayout);
-		pane5.setLayout(new GridLayout(2, 0));
-		pane5.add(professorLabel);
+		pane3.add(classRoom);
+
+		JPanel panePeriod = new JPanel(centerLayout);
+		panePeriod.setLayout(new GridLayout(2, 0));
+		panePeriod.add(periodLabel);
+		panePeriod.add(period);
+		// end of professor registration combobox
+
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
+
+		// taking students list
+		String[][] taking_students = DB.selectStudentsByLecture(lecture.getLectureID());
+		JPanel pane7 = new JPanel(centerLayout);
+		pane7.setLayout(new GridLayout(0, 1));
+		JLabel studentLabelTitle = new JLabel("Enrolled Students");
+		pane7.add(studentLabelTitle);
+		for (String[] student : taking_students) {
+			JLabel studentLabel = new JLabel("ID: " + student[2] + " Name: " + student[3]);
+			pane7.add(studentLabel);
+		}
+
 		pane6.add(editButton);
 		pane6.add(deleteButtton);
 		JPanel mainPane = new JPanel(centerLayout);
@@ -67,95 +112,78 @@ public class DetailLectureInformation extends MyFrame {
 		mainPane.add(pane1);
 		mainPane.add(pane2);
 		mainPane.add(pane3);
-		mainPane.add(pane4);
-		mainPane.add(pane5);
-		mainPane.add(scrollPane);
+		mainPane.add(paneDayOfWeek);
+		mainPane.add(panePeriod);
+		mainPane.add(paneProfessor);
+		// mainPane.add(scrollPane);
+		mainPane.add(pane7);
 		mainPane.add(pane6);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
 		this.setSize(500, 600);
 	}
 
-	class StudentTableModel extends AbstractTableModel {
-		private ArrayList<Student> students;
-		private String[] columnNames = {"ID", "Name"};
+	class EditButtonAction implements ActionListener {
+		private JTextField lectureName;
+		private JTextField classRoom;
+		private JTextField dayOfWeek;
+		private JTextField period;
 
-		// Constructor
-		public StudentTableModel(ArrayList<Student> students) {
-			this.students = students;
+		private String lectureID;
+
+		private JTextField professorID;
+
+		public EditButtonAction(JTextField lectureName, JTextField classRoom, JTextField dayOfWeek, JTextField period,
+				String lectureID, JTextField professorID) {
+			this.lectureName = lectureName;
+			this.classRoom = classRoom;
+			this.dayOfWeek = dayOfWeek;
+			this.period = period;
+			this.lectureID = lectureID;
+			this.professorID = professorID;
 		}
 
-		public int getRowCount() {
-			return students.size();
-		}
-
-		public int getColumnCount() {
-			return columnNames.length;
-		}
-
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			Student student = students.get(rowIndex);
-			switch (columnIndex) {
-				case 0:
-					return student.getStudentID();
-				case 1:
-					return student.getName();
-				default:
-					return null;
-			}
-		}
-
-		public String getColumnName(int column) {
-			return columnNames[column];
-		}
-	}
-
-	class ButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			DB.updateLecture(Integer.parseInt(lectureID), lectureName.getText(), classRoom.getText(),
+					DayOfWeek.convertIntToYoubi(dayOfWeek.getText()),
+					period.getText());
+			// Changes to the professor are here, it's good to add
+			// DB.insertIntoTeachingLectures separately. Use the dropdown to assign the id
+			if (!professorID.getText().equals("")) {
+				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
+				DB.insertIntoTeachingLectures(professorID.getText(), Integer.parseInt(lectureID));
+			}
+			if (professorID.getText().equals("")) {
+				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
+			}
+			MyApp.initData();
 			dispose();
 		}
 	}
 
 	class DeleteButtonAction implements ActionListener {
-		private Lecture lecture; // 講義情報を保持するフィールド
-	
-		// コンストラクタで講義情報を受け取る
+		private Lecture lecture; // Field to hold lecture information
+
+		// Constructor to receive lecture information
 		public DeleteButtonAction(Lecture lecture) {
 			this.lecture = lecture;
 		}
-	
+
 		public void actionPerformed(ActionEvent e) {
-			int response = JOptionPane.showConfirmDialog(null, "本当にこの講義を削除しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this lecture?",
+					"Confirmation", JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE);
 			if (response == JOptionPane.YES_OPTION) {
-				deleteLecture();
-			}
-		}
-	
-		private void deleteLecture() {
-			//Database.deleteLecture(lecture.getLectureID());
-
-			// String lectureID = lecture.getLectureID()
-			// int rowIndex = -1; // 初期値は見つからないことを示す-1
-			// for (int i = 0; i < tableModel.getRowCount(); i++) {
-			// 	if (tableModel.getValueAt(i, idColumnIndex).equals(lectureID)) {
-			// 		rowIndex = i;
-			// 		break;
-			// 	}
-			// }
-			// if (rowIndex == -1) {
-			// 	return;
-			// }
-
-			// if (rowIndex != -1) {
-			// 	tableModel.removeRow(rowIndex);
-			// 	table.repaint();
+				DB.deleteFromLectures(Integer.parseInt(lecture.getLectureID()));
+				MyApp.initData();
 				dispose();
-			//}
+			}
 		}
 	}
 
 	public static void createDetailLectureInformation(Lecture lecture) {
-		DetailLectureInformation detailLectureInformation = new DetailLectureInformation("Detail Lecture Information", lecture);
+		DetailLectureInformation detailLectureInformation = new DetailLectureInformation("Detail Lecture Information",
+				lecture);
 		detailLectureInformation.setVisible(true);
 	}
 }

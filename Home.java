@@ -15,6 +15,7 @@ public class Home extends MyFrame {
 	// Constructor
 	public Home(String title) {
 		super(title); // Constructor of super class
+
 		JLabel label1 = new JLabel("Lecture Manegement System");
 		JLabel label2 = new JLabel("Rakuta");
 		label1.setHorizontalAlignment(JLabel.CENTER);
@@ -36,16 +37,16 @@ public class Home extends MyFrame {
 		professorButton.setActionCommand("Professor");
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1,0));
+		buttonPanel.setLayout(new GridLayout(1, 0));
 		buttonPanel.add(lectureButton);
 		buttonPanel.add(studentButton);
 		buttonPanel.add(professorButton);
 
-		JPanel mainPannel = new JPanel();
-		mainPannel.setLayout(new GridLayout(0,1));
-		mainPannel.add(label1);
-		mainPannel.add(label2);
-		mainPannel.add(buttonPanel);
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new GridLayout(0, 1));
+		mainPanel.add(label1);
+		mainPanel.add(label2);
+		mainPanel.add(buttonPanel);
 
 		LecturePanel lecturePanel = LecturePanel.createLecturePanel();
 		StudentPanel studentPanel = StudentPanel.createStudentPanel();
@@ -59,7 +60,7 @@ public class Home extends MyFrame {
 		cardPanel.add(professorPanel, "Professor");
 
 		Container contentPane = getContentPane();
-		contentPane.add(mainPannel, BorderLayout.PAGE_START);
+		contentPane.add(mainPanel, BorderLayout.PAGE_START);
 		contentPane.add(cardPanel, BorderLayout.CENTER);
 	}
 
@@ -75,7 +76,7 @@ public class Home extends MyFrame {
 	// Here, create home screen as an entity
 	// Later, call this class method in main method of MyApp class
 	public static void createHome() {
-		Home home = new Home("講義管理システム"); // This panel is a super panel among all panel in the Home screen.
+		Home home = new Home("Lecture Management System"); // This panel is a super panel among all panel in the Home screen.
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		home.setVisible(true);
 	}

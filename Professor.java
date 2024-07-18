@@ -3,14 +3,11 @@ import java.util.List;
 public class Professor {
 	String professorID;
 	String professorName;
-	List<Lecture> lecturesInCharge;
 
-	// コンストラクタ、ゲッター、セッターなどのメソッドを定義しよう
 	// Definition of constructor
-	public Professor(String professorID, String professorName, List<Lecture> lecturesInCharge) {
+	public Professor(String professorID, String professorName) {
 		this.professorID = professorID;
 		this.professorName = professorName;
-		this.lecturesInCharge = lecturesInCharge;
 	}
 	public String getProfessorID() {
 		return this.professorID;
@@ -18,7 +15,9 @@ public class Professor {
 	public String getName() {
 		return this.professorName;
 	}
-	public List<Lecture> getLecturesInCharge() {
-		return this.lecturesInCharge;
+	
+	@Override
+	public String toString() {
+		return this.professorName;
 	}
 }
