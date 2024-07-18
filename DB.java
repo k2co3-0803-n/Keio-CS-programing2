@@ -78,9 +78,10 @@ public class DB {
         executeUpdate(sql, studentID, lectureID);
     }
 
-    public static void deleteFromTeachingLectures(String teacherID, int lectureID) {
-        String sql = "DELETE FROM teaching_lectures WHERE teacher_id = ? AND lecture_id = ?";
-        executeUpdate(sql, teacherID, lectureID);
+    // 今は講義対教員の関係が1対1なのでlectureIDのみで対応を消すようにする
+    public static void deleteFromTeachingLectures(int lectureID) {
+        String sql = "DELETE FROM teaching_lectures WHERE lecture_id = ?";
+        executeUpdate(sql, lectureID);
     }
 
     // select

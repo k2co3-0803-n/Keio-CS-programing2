@@ -22,7 +22,7 @@ public class DetailLectureInformation extends MyFrame {
 		JLabel classRoomLabel = new JLabel("教室");
 		JLabel dayOfWeekLabel = new JLabel("曜日");
 		JLabel periodLabel = new JLabel("時限");
-		JLabel professorLabel = new JLabel("担当教員");
+		JLabel professorLabel = new JLabel("担当教員ID"); // 一旦IDで、あとでドロップダウン
 
 		// TextField
 		JTextField lectureName = new JTextField(lecture.getLectureName());
@@ -30,7 +30,7 @@ public class DetailLectureInformation extends MyFrame {
 		JTextField dayOfWeek = new JTextField(lecture.getDayOfWeek());
 		JTextField period = new JTextField(lecture.getPeriod());
 		// 教員を変更する機構はまだ
-		JTextField professor = new JTextField(lecture.getProfessorInCharge());
+		JTextField professorID = new JTextField(lecture.getProfessorInCharge());
 
 		// TODO add JTable which shows the list of students taking this class.
 		// StudentTableModel model = new
@@ -40,7 +40,7 @@ public class DetailLectureInformation extends MyFrame {
 
 		JButton editButton = new JButton("edit");
 		EditButtonAction buttonListener = new EditButtonAction(lectureName, classRoom, dayOfWeek, period,
-				lecture.getLectureID());
+				lecture.getLectureID(), professorID);
 		editButton.addActionListener(buttonListener);
 		JButton deleteButtton = new JButton("delete");
 		// pass lecture information to the action listener by using constructor
@@ -74,7 +74,7 @@ public class DetailLectureInformation extends MyFrame {
 		JPanel pane5 = new JPanel(centerLayout);
 		pane5.setLayout(new GridLayout(2, 0));
 		pane5.add(professorLabel);
-		pane5.add(professor);
+		pane5.add(professorID);
 
 		JPanel pane6 = new JPanel(centerLayout);
 		pane6.setLayout(new GridLayout(2, 0));
@@ -114,13 +114,16 @@ public class DetailLectureInformation extends MyFrame {
 
 		private String lectureID;
 
+		private JTextField professorID;
+
 		public EditButtonAction(JTextField lectureName, JTextField classRoom, JTextField dayOfWeek, JTextField period,
-				String lectureID) {
+				String lectureID, JTextField professorID) {
 			this.lectureName = lectureName;
 			this.classRoom = classRoom;
 			this.dayOfWeek = dayOfWeek;
 			this.period = period;
 			this.lectureID = lectureID;
+			this.professorID = professorID;
 		}
 
 		public void actionPerformed(ActionEvent e) {
@@ -128,6 +131,13 @@ public class DetailLectureInformation extends MyFrame {
 					dayOfWeek.getText(),
 					period.getText());
 			// 先生の変更はここに、別でDB.insertIntoTeachingLecturesを追記するのが良いと思う。ドロップダウンで、idを代入させるようにする
+			if (!professorID.getText().equals("")) {
+				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
+				DB.insertIntoTeachingLectures(professorID.getText(), Integer.parseInt(lectureID));
+			}
+			if (professorID.getText().equals("")) {
+				DB.deleteFromTeachingLectures(Integer.parseInt(lectureID));
+			}
 			MyApp.initdata();
 			dispose();
 		}
