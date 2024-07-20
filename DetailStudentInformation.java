@@ -1,16 +1,18 @@
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 import javax.swing.JTextField;
+import java.awt.Dimension;
 
 public class DetailStudentInformation extends MyFrame {
 	public DetailStudentInformation(String frameName, Student student) {
@@ -46,14 +48,32 @@ public class DetailStudentInformation extends MyFrame {
 		pane2.add(studentName);
 
 		// taking lectures list
-		JPanel pane3 = new JPanel(centerLayout);
+		JPanel pane3 = new JPanel();
+		pane3.setLayout(new GridLayout(0, 1));
 		JLabel takingLecturesLabel = new JLabel("Taking Lectures: ");
 		pane3.add(takingLecturesLabel);
-		pane3.setLayout(new GridLayout(0, 1));
-		for (String[] lecture : taking_lectures) {
-			JLabel lectureLabel = new JLabel("ID: " + lecture[0] + " Lecture Name: " + lecture[1]);
-			pane3.add(lectureLabel);
+
+		Object[][] data = new Object[taking_lectures.length][2];
+		for (int i = 0; i < taking_lectures.length; i++) {
+			data[i][0] = taking_lectures[i][0]; // ID
+			data[i][1] = taking_lectures[i][1]; // Lecture Name
 		}
+
+		String[] columnNames = {"ID", "Lecture Name"};
+
+		JTable table = new JTable(data, columnNames);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		pane3.add(scrollPane);
+
+		int rowHeight = table.getRowHeight();
+		int visibleRowCount = 5;
+		int tableHeight = (visibleRowCount * rowHeight) + table.getIntercellSpacing().height;
+
+		scrollPane.setPreferredSize(new Dimension(scrollPane.getPreferredSize().width, tableHeight));
+
+		pane3.revalidate();
+		pane3.repaint();
 
 		// register lecture combobox
 		Lecture[] lectureArray = new Lecture[MyApp.lectures.size()];

@@ -9,7 +9,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 
 public class DetailProfessorInformation extends MyFrame {
     public DetailProfessorInformation(String frameName, Professor professor) {
@@ -29,10 +28,10 @@ public class DetailProfessorInformation extends MyFrame {
         FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
 
         JPanel pane1 = new JPanel(centerLayout);
-        pane1.setLayout(new GridLayout(2, 0));
+        pane1.setLayout(new GridLayout(1, 0));
         pane1.add(idLabel);
         JPanel pane2 = new JPanel(centerLayout);
-        pane2.setLayout(new GridLayout(2, 0));
+        pane2.setLayout(new GridLayout(1, 0));
         pane2.add(professorNameLabel);
         pane2.add(professorName);
         JPanel pane6 = new JPanel(centerLayout);

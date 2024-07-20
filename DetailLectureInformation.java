@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class DetailLectureInformation extends MyFrame {
 	public DetailLectureInformation(String frameName, Lecture lecture) {
 		super(frameName);
-		JLabel idLabel = new JLabel("ID" + lecture.getLectureID());
+		JLabel idLabel = new JLabel("ID: " + lecture.getLectureID());
 		JLabel lectureNameLabel = new JLabel("Lecture Name");
 		JLabel classRoomLabel = new JLabel("Classroom");
 		JLabel dayOfWeekLabel = new JLabel("Day of Week");
@@ -74,7 +74,7 @@ public class DetailLectureInformation extends MyFrame {
 		FlowLayout centerLayout = new FlowLayout(FlowLayout.CENTER);
 
 		JPanel pane1 = new JPanel(centerLayout);
-		pane1.setLayout(new GridLayout(2, 0));
+		pane1.setLayout(new GridLayout(1, 0));
 		pane1.add(idLabel);
 		JPanel pane2 = new JPanel(centerLayout);
 		pane2.setLayout(new GridLayout(2, 0));
@@ -86,27 +86,48 @@ public class DetailLectureInformation extends MyFrame {
 		pane3.add(classRoom);
 
 		JPanel panePeriod = new JPanel(centerLayout);
-		panePeriod.setLayout(new GridLayout(2, 0));
+		panePeriod.setLayout(new GridLayout(1, 0));
 		panePeriod.add(periodLabel);
 		panePeriod.add(period);
 		// end of professor registration combobox
 
-		JPanel pane6 = new JPanel(centerLayout);
-		pane6.setLayout(new GridLayout(2, 0));
-
 		// taking students list
 		String[][] taking_students = DB.selectStudentsByLecture(lecture.getLectureID());
-		JPanel pane7 = new JPanel(centerLayout);
-		pane7.setLayout(new GridLayout(0, 1));
+		JPanel pane6 = new JPanel(centerLayout);
+		pane6.setLayout(new GridLayout(0, 1));
 		JLabel studentLabelTitle = new JLabel("Enrolled Students");
-		pane7.add(studentLabelTitle);
-		for (String[] student : taking_students) {
-			JLabel studentLabel = new JLabel("ID: " + student[2] + " Name: " + student[3]);
-			pane7.add(studentLabel);
+		pane6.add(studentLabelTitle);
+		// for (String[] student : taking_students) {
+		// 	JLabel studentLabel = new JLabel("ID: " + student[2] + " Name: " + student[3]);
+		// 	pane7.add(studentLabel);
+		// }
+		Object[][] data = new Object[taking_students.length][2];
+		for (int i = 0; i < taking_students.length; i++) {
+			data[i][0] = taking_students[i][2];
+			data[i][1] = taking_students[i][3];
 		}
 
-		pane6.add(editButton);
-		pane6.add(deleteButtton);
+		String[] columnNames = {"ID", "Name"};
+
+		JTable table = new JTable(data, columnNames);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		pane6.add(scrollPane);
+
+		int rowHeight = table.getRowHeight();
+		int visibleRowCount = 5;
+		int tableHeight = (visibleRowCount * rowHeight) + table.getIntercellSpacing().height;
+
+		scrollPane.setPreferredSize(new Dimension(scrollPane.getPreferredSize().width, tableHeight));
+
+		pane6.revalidate();
+		pane6.repaint();
+
+		JPanel pane7 = new JPanel(centerLayout);
+		pane7.setLayout(new GridLayout(2, 0));
+		pane7.add(editButton);
+		pane7.add(deleteButtton);
+
 		JPanel mainPane = new JPanel(centerLayout);
 		mainPane.setLayout(new GridLayout(0, 1));
 		mainPane.add(pane1);
@@ -115,9 +136,8 @@ public class DetailLectureInformation extends MyFrame {
 		mainPane.add(paneDayOfWeek);
 		mainPane.add(panePeriod);
 		mainPane.add(paneProfessor);
-		// mainPane.add(scrollPane);
-		mainPane.add(pane7);
 		mainPane.add(pane6);
+		mainPane.add(pane7);
 
 		this.getContentPane().add(mainPane, BorderLayout.CENTER);
 		this.setSize(500, 600);
