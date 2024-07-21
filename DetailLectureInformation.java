@@ -97,10 +97,6 @@ public class DetailLectureInformation extends MyFrame {
 		pane6.setLayout(new GridLayout(0, 1));
 		JLabel studentLabelTitle = new JLabel("Enrolled Students");
 		pane6.add(studentLabelTitle);
-		// for (String[] student : taking_students) {
-		// 	JLabel studentLabel = new JLabel("ID: " + student[2] + " Name: " + student[3]);
-		// 	pane7.add(studentLabel);
-		// }
 		Object[][] data = new Object[taking_students.length][2];
 		for (int i = 0; i < taking_students.length; i++) {
 			data[i][0] = taking_students[i][2];
@@ -108,16 +104,13 @@ public class DetailLectureInformation extends MyFrame {
 		}
 
 		String[] columnNames = {"ID", "Name"};
-
 		JTable table = new JTable(data, columnNames);
-
 		JScrollPane scrollPane = new JScrollPane(table);
 		pane6.add(scrollPane);
 
 		int rowHeight = table.getRowHeight();
 		int visibleRowCount = 5;
 		int tableHeight = (visibleRowCount * rowHeight) + table.getIntercellSpacing().height;
-
 		scrollPane.setPreferredSize(new Dimension(scrollPane.getPreferredSize().width, tableHeight));
 
 		pane6.revalidate();
