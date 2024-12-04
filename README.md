@@ -1,4 +1,4 @@
-## how to use
+# How to use
 compile all java files.
 
 ```java
